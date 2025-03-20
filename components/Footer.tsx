@@ -4,9 +4,7 @@ import {
   MapPinIcon,
   ClockIcon,
   MailIcon,
-  FacebookIcon,
-  InstagramIcon,
-  YoutubeIcon,
+  
 } from 'lucide-react'
 export default function Footer() {
   return (

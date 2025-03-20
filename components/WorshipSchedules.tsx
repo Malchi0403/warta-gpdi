@@ -1,8 +1,9 @@
 'use client'
-import React, { useState } from 'react'
+import React from 'react'
 import { CalendarIcon, UsersIcon, HomeIcon } from 'lucide-react'
 import { useDispatch, useSelector } from 'react-redux'
 import { setMinistry } from '@/libs/redux/ministryroster'
+import { RootState } from '@/libs/store/store'
 interface ScheduleInterface {
   title:string
   date:string
@@ -102,7 +103,7 @@ function ScheduleCard({ title, date, time,keluarga,  location,onClickCustom } : 
   )
 }
 export default function WorshipSchedules({data} : {data:Event[]}) {
-  const dataMinistry = useSelector((state : any) => state.ministry);
+  const dataMinistry = useSelector((state : RootState) => state.ministry);
   const dispatch = useDispatch()
   const komselData = data
   .map((a) => a.komsel || [])

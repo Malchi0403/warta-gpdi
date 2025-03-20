@@ -2,7 +2,7 @@ import { EventDetail, Komsel } from "@/components/WorshipSchedules";
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 
 interface Ministry {
-    ministry?: EventDetail |Komsel | null;
+    ministry: EventDetail |Komsel |null;
     activeTab?:string
     dateEvent?:string
     eventName?:string

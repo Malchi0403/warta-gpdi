@@ -13,12 +13,13 @@ import {
 } from 'lucide-react'
 import React, { cloneElement, useEffect, useMemo, useState } from 'react'
 import { useSelector } from 'react-redux'
-import { getTitle } from './WorshipSchedules'
-interface ServiceRole {
-  title: string
-  name: string | string[]
-  icon: React.ReactNode
-}
+import { EventDetail, getTitle } from './WorshipSchedules'
+import { RootState } from '@/libs/store/store'
+// interface ServiceRole {
+//   title: string
+//   name: string | string[]
+//   icon: React.ReactNode
+// }
 // interface ScheduleEntry {
 //   date: string
 //   worshipLeader: string
@@ -33,7 +34,7 @@ interface ServiceRole {
 // }
 interface ServiceCardProps {
   title: string
-  name: string | string[]
+  name: string | string[] | undefined
   icon: React.ReactNode
 }
 
@@ -63,61 +64,15 @@ const ServiceCard: React.FC<ServiceCardProps> = ({ title, name, icon }  ) => {
 }
 export default function MinistryRoster() {
   const currentDate = new Date('2024-03-10')
-  const dataMinistry = useSelector((state : any) => state.ministry);
+  const dataMinistry = useSelector((state :RootState) => state.ministry);
 
   const isFirstSunday = currentDate.getDate() <= 7 && currentDate.getDay() === 0
-  const currentServices: ServiceRole[] = [
-    {
-      title: 'Worship Leader',
-      name: 'Bpk. Samuel Wijaya',
-      icon: <MicIcon />,
-    },
-    {
-      title: 'Singer',
-      name: ['Sdri. Maria', 'Sdri. Anna', 'Sdr. Yohanes'],
-      icon: <Music2Icon />,
-    },
-    {
-      title: 'Tim Musik',
-      name: ['Sdr. Daniel', 'Sdr.Yosua', 'Sdr. David'],
-      icon: <MusicIcon />,
-    },
-    {
-      title: 'Penerima Tamu',
-      name: ['Ibu Ruth', 'Ibu Debora', 'Bpk. Markus'],
-      icon: <HeartIcon />,
-    },
-    {
-      title: 'Tim Tamborin',
-      name: ['Sdri. Rachel', 'Sdri. Sarah', 'Sdri. Hannah'],
-      icon: <Music2Icon />,
-    },
-    {
-      title: 'Kolektan',
-      name: ['Bpk. Andreas', 'Ibu Martha'],
-      icon: <HandIcon />,
-    },
-    {
-      title: 'Doa Syafaat',
-      name: ['Bpk. Paulus', 'Ibu Esther'],
-      icon: <Handshake />,
-    },
-    {
-      title: 'Multimedia',
-      name: ['Sdr. Thomas', 'Sdri. Priska'],
-      icon: <MonitorIcon />,
-    },
-    {
-      title: 'Pembaca Warta',
-      name: 'Sdr. Thomas',
-      icon: <BookOpenCheckIcon />,
-    },
-  ]
+  
   const dataService = useMemo(() => {
     if(dataMinistry.activeTab === 'umum') {
-      if(dataMinistry.ministry) {
+      if(dataMinistry.ministry ) {
 
-        if( dataMinistry?.ministry?.perjamuan.length < 1) {
+        if( (dataMinistry?.ministry as EventDetail).perjamuan?.length === 0) {
           return (
             [
               {
@@ -127,42 +82,42 @@ export default function MinistryRoster() {
               },
               {
                 title: 'Singer',
-                name: dataMinistry?.ministry.singer,
+                name: (dataMinistry?.ministry as EventDetail).singer,
                 icon: <Music2Icon />,
               },
               {
                 title: 'Tim Musik',
-                name: dataMinistry?.ministry.music,
+                name: (dataMinistry?.ministry as EventDetail).music,
                 icon: <MusicIcon />,
               },
               {
                 title: 'Penerima Tamu',
-                name: dataMinistry?.ministry.usher,
+                name: (dataMinistry?.ministry as EventDetail).usher,
                 icon: <HeartIcon />,
               },
               {
                 title: 'Tim Tamborin',
-                name: dataMinistry?.ministry.tamborin,
+                name: (dataMinistry?.ministry as EventDetail).tamborin,
                 icon: <Music2Icon />,
               },
               {
                 title: 'Kolektan',
-                name: dataMinistry?.ministry.kolekte,
+                name: (dataMinistry?.ministry as EventDetail).kolekte,
                 icon: <HandIcon />,
               },
               {
                 title: 'Doa Syafaat',
-                name: dataMinistry?.ministry.pendoaSyafaat,
+                name: (dataMinistry?.ministry as EventDetail).pendoaSyafaat,
                 icon: <Handshake />,
               },
               {
                 title: 'Multimedia',
-                name: dataMinistry?.ministry.multimedia,
+                name: (dataMinistry?.ministry as EventDetail).multimedia,
                 icon: <MonitorIcon />,
               },
               {
                 title: 'Pembaca Warta',
-                name: dataMinistry?.ministry.pembacaWarta,
+                name: (dataMinistry?.ministry as EventDetail).pembacaWarta,
                 icon: <BookOpenCheckIcon />,
               },
             ]
@@ -172,52 +127,52 @@ export default function MinistryRoster() {
             [
               {
                 title: 'Worship Leader',
-                name: dataMinistry?.ministry.wl,
+                name: (dataMinistry?.ministry as EventDetail).wl,
                 icon: <MicIcon />,
               },
               {
                 title: 'Singer',
-                name: dataMinistry?.ministry.singer,
+                name: (dataMinistry?.ministry as EventDetail).singer,
                 icon: <Music2Icon />,
               },
               {
                 title: 'Tim Musik',
-                name: dataMinistry?.ministry.music,
+                name: (dataMinistry?.ministry as EventDetail).music,
                 icon: <MusicIcon />,
               },
               {
                 title: 'Penerima Tamu',
-                name: dataMinistry?.ministry.usher,
+                name: (dataMinistry?.ministry as EventDetail).usher,
                 icon: <HeartIcon />,
               },
               {
                 title: 'Tim Tamborin',
-                name: dataMinistry?.ministry.tamborin,
+                name: (dataMinistry?.ministry as EventDetail).tamborin,
                 icon: <Music2Icon />,
               },
               {
                 title: 'Kolektan',
-                name: dataMinistry?.ministry.kolekte,
+                name: (dataMinistry?.ministry as EventDetail).kolekte,
                 icon: <HandIcon />,
               },
               {
                 title: 'Doa Syafaat',
-                name: dataMinistry?.ministry.pendoaSyafaat,
+                name: (dataMinistry?.ministry as EventDetail).pendoaSyafaat,
                 icon: <Handshake />,
               },
               {
                 title: 'Multimedia',
-                name: dataMinistry?.ministry.multimedia,
+                name: (dataMinistry?.ministry as EventDetail).multimedia,
                 icon: <MonitorIcon />,
               },
               {
                 title: 'Pembaca Warta',
-                name: dataMinistry?.ministry.pembacaWarta,
+                name: (dataMinistry?.ministry as EventDetail).pembacaWarta,
                 icon: <BookOpenCheckIcon />,
               },
               {
                 title: 'Pembaca Warta',
-                name: dataMinistry?.ministry.perjamuan,
+                name: (dataMinistry?.ministry as EventDetail).perjamuan,
                 icon: <Wine />,
               },
             ]
@@ -235,7 +190,7 @@ export default function MinistryRoster() {
             },
             {
               title: 'Singer',
-              name: dataMinistry?.ministry.singer,
+              name: (dataMinistry?.ministry as EventDetail).singer,
               icon: <Music2Icon />,
             },
             {
@@ -246,13 +201,13 @@ export default function MinistryRoster() {
 
             {
               title: 'Kolektan',
-              name: dataMinistry?.ministry.kolekte,
+              name: (dataMinistry?.ministry as EventDetail).kolekte,
               icon: <HandIcon />,
             },
           
             {
               title: 'Multimedia',
-              name: dataMinistry?.ministry.multimedia,
+              name: (dataMinistry?.ministry as EventDetail).multimedia,
               icon: <MonitorIcon />,
             },
            
@@ -358,7 +313,7 @@ export default function MinistryRoster() {
             <ServiceCard
               key={index}
               title={service.title}
-              name={service.name}
+              name={service?.name}
               icon={service.icon}
             />
           ))}
