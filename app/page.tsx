@@ -5,7 +5,7 @@ import MinistryRoster  from '../components/MinistryRoster'
 import Footer  from '../components/Footer'
 import Header  from '../components/Header'
 async function App() {
-  const res = await fetch('http://localhost:8080/api/event', {
+  const res = await fetch('https://backend.gpdishekinah.online/api/event', {
     cache: 'no-store', // Hindari cache agar selalu dapat data terbaru
   })
 

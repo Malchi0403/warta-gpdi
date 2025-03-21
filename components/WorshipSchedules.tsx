@@ -129,6 +129,8 @@ export default function WorshipSchedules({data} : {data:Event[]}) {
             <CalendarIcon className="h-4 w-4 mr-2" />
             Ibadah Umum
           </button>
+          {data.filter((a) => a.eventName === 'pemuda').length > 0 && (
+
           <button
             className={tabStyle(dataMinistry.activeTab === 'pemuda')}
             onClick={() => dispatch(setMinistry({activeTab:'pemuda',ministry:data.filter((a) => a.eventName === 'pemuda')[0].event,dateEvent:data.filter((a) => a.eventName === 'pemuda')[0].dateEvent,eventName:data.filter((a) => a.eventName === 'pemuda')[0].eventName}))}
@@ -136,6 +138,9 @@ export default function WorshipSchedules({data} : {data:Event[]}) {
             <UsersIcon className="h-4 w-4 mr-2" />
             Ibadah Pemuda
           </button>
+          )}
+          {data.filter((a) => a.eventName === 'keluarga').length > 0 && (
+
           <button
             className={tabStyle(dataMinistry.activeTab === 'keluarga')}
             onClick={() => dispatch(setMinistry({activeTab:'keluarga',ministry:komselData[0],dateEvent:komselData[0].dateKomsel,eventName:komselData[0].name}))}
@@ -143,6 +148,8 @@ export default function WorshipSchedules({data} : {data:Event[]}) {
             <HomeIcon className="h-4 w-4 mr-2" />
             Ibadah Komsel
           </button>
+          )}
+
         </div>
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
           {dataMinistry.activeTab === 'umum' && (
