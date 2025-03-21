@@ -196,7 +196,7 @@ export default function WorshipSchedules({ data }: { data: Event[] }) {
               Ibadah Pemuda
             </button>
           )}
-          {data.filter((a) => a.eventName === "keluarga").length > 0 && (
+          {komselData.length > 0 && (
             <button
               className={tabStyle(dataMinistry.activeTab === "keluarga")}
               onClick={() =>
