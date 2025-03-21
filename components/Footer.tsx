@@ -3,7 +3,6 @@ import {
   PhoneIcon,
   MapPinIcon,
   ClockIcon,
-  MailIcon,
   
 } from 'lucide-react'
 export default function Footer() {
