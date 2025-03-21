@@ -45,10 +45,10 @@ export default function Footer() {
                 <PhoneIcon className="h-5 w-5 mr-2 mt-0.5 text-blue-300" />
                 <span>(+62) 8131-6145-742</span>
               </li>
-              <li className="flex items-start">
+              {/* <li className="flex items-start">
                 <MailIcon className="h-5 w-5 mr-2 mt-0.5 text-blue-300" />
                 <span>info@gpdihermon.org</span>
-              </li>
+              </li> */}
               <li className="flex items-start">
                 <MapPinIcon className="h-5 w-5 mr-2 mt-0.5 text-blue-300" />
                 <span>
