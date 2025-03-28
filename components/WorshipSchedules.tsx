@@ -113,7 +113,14 @@ function ScheduleCard({
 export default function WorshipSchedules({ data }: { data: Event[] }) {
   const dataMinistry = useSelector((state: RootState) => state.ministry);
   const dispatch = useDispatch();
-  const komselData = data.map((a) => a.komsel || []).flat();
+  const today = new Date()
+  const komselData = data
+  .map((a) => a.komsel || [])
+  .flat()
+  .filter((komsel) => {
+    const komselDate = new Date(komsel.dateKomsel);
+    return komselDate >= today;
+  });
   useEffect(() => {
     dispatch(
       setMinistry({
@@ -156,17 +163,20 @@ export default function WorshipSchedules({ data }: { data: Event[] }) {
                   ministry: data.filter((a) =>
                     ["ibadahPagi", "ibadahSiang", "ibadahSore"].includes(
                       a.eventName
-                    )
+                    ) &&
+                    new Date(a.dateEvent) >= new Date()
                   )[0].event,
                   dateEvent: data.filter((a) =>
                     ["ibadahPagi", "ibadahSiang", "ibadahSore"].includes(
                       a.eventName
-                    )
+                    ) &&
+                    new Date(a.dateEvent) >= new Date()
                   )[0].dateEvent,
                   eventName: data.filter((a) =>
                     ["ibadahPagi", "ibadahSiang", "ibadahSore"].includes(
                       a.eventName
-                    )
+                    ) &&
+                    new Date(a.dateEvent) >= new Date()
                   )[0].eventName,
                 })
               )
@@ -175,18 +185,22 @@ export default function WorshipSchedules({ data }: { data: Event[] }) {
             <CalendarIcon className="h-4 w-4 mr-2" />
             Ibadah Umum
           </button>
-          {data.filter((a) => a.eventName === "pemuda").length > 0 && (
+          {data.filter((a) => a.eventName === "pemuda" &&
+      new Date(a.dateEvent) >= new Date()).length > 0 && (
             <button
               className={tabStyle(dataMinistry.activeTab === "pemuda")}
               onClick={() =>
                 dispatch(
                   setMinistry({
                     activeTab: "pemuda",
-                    ministry: data.filter((a) => a.eventName === "pemuda")[0]
+                    ministry: data.filter((a) => a.eventName === "pemuda" &&
+                    new Date(a.dateEvent) >= new Date())[0]
                       .event,
-                    dateEvent: data.filter((a) => a.eventName === "pemuda")[0]
+                    dateEvent: data.filter((a) => a.eventName === "pemuda" &&
+                    new Date(a.dateEvent) >= new Date())[0]
                       .dateEvent,
-                    eventName: data.filter((a) => a.eventName === "pemuda")[0]
+                    eventName: data.filter((a) => a.eventName === "pemuda" &&
+                    new Date(a.dateEvent) >= new Date())[0]
                       .eventName,
                   })
                 )
@@ -222,7 +236,8 @@ export default function WorshipSchedules({ data }: { data: Event[] }) {
                 .filter((a) =>
                   ["ibadahPagi", "ibadahSiang", "ibadahSore"].includes(
                     a.eventName
-                  )
+                  ) &&
+                  new Date(a.dateEvent) >= new Date()
                 )
                 .map((e, i) => (
                   <ScheduleCard
@@ -257,7 +272,8 @@ export default function WorshipSchedules({ data }: { data: Event[] }) {
           {dataMinistry.activeTab === "pemuda" && (
             <>
               {data
-                .filter((a) => a.eventName === "pemuda")
+                .filter((a) => a.eventName === "pemuda" &&
+                new Date(a.dateEvent) >= new Date())
                 .map((e, i) => (
                   <ScheduleCard
                     key={i}
