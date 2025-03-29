@@ -113,13 +113,14 @@ function ScheduleCard({
 export default function WorshipSchedules({ data }: { data: Event[] }) {
   const dataMinistry = useSelector((state: RootState) => state.ministry);
   const dispatch = useDispatch();
-  const today = new Date()
+  // const today = new Date()
+  const today = new Date().getTime();
   const komselData = data
   .map((a) => a.komsel || [])
   .flat()
   .filter((komsel) => {
     const komselDate = new Date(komsel.dateKomsel);
-    return komselDate >= today;
+    return komselDate.setHours(23,59,59,999) >= today;
   });
   useEffect(() => {
     dispatch(
@@ -137,7 +138,6 @@ export default function WorshipSchedules({ data }: { data: Event[] }) {
       })
     );
   }, []);
-
   const tabStyle = (isActive: boolean) =>
     `flex items-center px-4 py-2 rounded-md mx-1 mb-2 cursor-pointer transition duration-300 ${
       isActive
@@ -164,19 +164,19 @@ export default function WorshipSchedules({ data }: { data: Event[] }) {
                     ["ibadahPagi", "ibadahSiang", "ibadahSore"].includes(
                       a.eventName
                     ) &&
-                    new Date(a.dateEvent) >= new Date()
+                    new Date(a.dateEvent).setHours(23,59,59,999) >= today
                   )[0].event,
                   dateEvent: data.filter((a) =>
                     ["ibadahPagi", "ibadahSiang", "ibadahSore"].includes(
                       a.eventName
                     ) &&
-                    new Date(a.dateEvent) >= new Date()
+                    new Date(a.dateEvent).setHours(23,59,59,999) >= today
                   )[0].dateEvent,
                   eventName: data.filter((a) =>
                     ["ibadahPagi", "ibadahSiang", "ibadahSore"].includes(
                       a.eventName
                     ) &&
-                    new Date(a.dateEvent) >= new Date()
+                    new Date(a.dateEvent).setHours(23,59,59,999) >= today
                   )[0].eventName,
                 })
               )
@@ -186,7 +186,7 @@ export default function WorshipSchedules({ data }: { data: Event[] }) {
             Ibadah Umum
           </button>
           {data.filter((a) => a.eventName === "pemuda" &&
-      new Date(a.dateEvent) >= new Date()).length > 0 && (
+      new Date(a.dateEvent).setHours(23,59,59,999) >= today).length > 0 && (
             <button
               className={tabStyle(dataMinistry.activeTab === "pemuda")}
               onClick={() =>
@@ -194,13 +194,13 @@ export default function WorshipSchedules({ data }: { data: Event[] }) {
                   setMinistry({
                     activeTab: "pemuda",
                     ministry: data.filter((a) => a.eventName === "pemuda" &&
-                    new Date(a.dateEvent) >= new Date())[0]
+                    new Date(a.dateEvent).setHours(23,59,59,999) >= today)[0]
                       .event,
                     dateEvent: data.filter((a) => a.eventName === "pemuda" &&
-                    new Date(a.dateEvent) >= new Date())[0]
+                    new Date(a.dateEvent).setHours(23,59,59,999) >= today)[0]
                       .dateEvent,
                     eventName: data.filter((a) => a.eventName === "pemuda" &&
-                    new Date(a.dateEvent) >= new Date())[0]
+                    new Date(a.dateEvent).setHours(23,59,59,999) >= today)[0]
                       .eventName,
                   })
                 )
@@ -237,7 +237,7 @@ export default function WorshipSchedules({ data }: { data: Event[] }) {
                   ["ibadahPagi", "ibadahSiang", "ibadahSore"].includes(
                     a.eventName
                   ) &&
-                  new Date(a.dateEvent) >= new Date()
+                  new Date(a.dateEvent).setHours(23,59,59,999) >= today
                 )
                 .map((e, i) => (
                   <ScheduleCard
@@ -273,7 +273,7 @@ export default function WorshipSchedules({ data }: { data: Event[] }) {
             <>
               {data
                 .filter((a) => a.eventName === "pemuda" &&
-                new Date(a.dateEvent) >= new Date())
+                new Date(a.dateEvent).setHours(23,59,59,999) >= today)
                 .map((e, i) => (
                   <ScheduleCard
                     key={i}

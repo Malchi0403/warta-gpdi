@@ -14,7 +14,6 @@ async function App() {
   }
 
   const posts = await res.json()
-  console.log(posts)
   return (
     <div suppressHydrationWarning className="flex flex-col min-h-screen bg-gray-50">
       <Header />

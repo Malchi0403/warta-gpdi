@@ -19,7 +19,7 @@ export default function Header() {
           <div>
             <h1 className="text-xl font-bold">GPdI Shekinah</h1>
             <p className="text-xs md:text-sm text-yellow-200">
-              Warta Jemaat Mingguan
+              Warta Jemaat
             </p>
           </div>
         </div>
