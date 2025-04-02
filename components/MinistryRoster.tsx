@@ -171,7 +171,7 @@ export default function MinistryRoster() {
                 icon: <BookOpenCheckIcon />,
               },
               {
-                title: 'Pembaca Warta',
+                title: 'Perjamuan',
                 name: (dataMinistry?.ministry as EventDetail).perjamuan,
                 icon: <Wine />,
               },

@@ -4,7 +4,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
   return [
     {
       url: 'https://gpdishekinah.online/',
-      lastModified: new Date().toISOString(),
+      lastModified: new Date(),
       changeFrequency: 'weekly',
       priority: 1.0,
     },
