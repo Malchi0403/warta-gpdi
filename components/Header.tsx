@@ -11,7 +11,7 @@ import Image from 'next/image'
 export default function Header() {
   const [isMenuOpen, setIsMenuOpen] = useState(false)
   return (
-    <header className="bg-gradient-to-r from-blue-900 via-blue-800 to-blue-900 text-white shadow-lg">
+    <header className="bg-gradient-to-r from-blue-900 via-blue-800 to-blue-900 text-white relative shadow-lg">
       <div suppressHydrationWarning className="container mx-auto px-4 py-4 flex justify-between items-center">
         <div  className="flex items-center space-x-2">
                 <Image src={'/assets/logoGPdI.jpeg'} width={30} height={30} className='w-9 h-9' alt='GPdI' />

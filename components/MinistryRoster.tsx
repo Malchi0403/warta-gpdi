@@ -11,10 +11,11 @@ import {
   MusicIcon,
   Wine
 } from 'lucide-react'
-import React, { cloneElement, useEffect, useMemo, useState } from 'react'
-import { useSelector } from 'react-redux'
+import React, { cloneElement, useEffect, useMemo, useRef, useState } from 'react'
+import { useDispatch, useSelector } from 'react-redux'
 import { EventDetail, getTitle } from './WorshipSchedules'
 import { RootState } from '@/libs/store/store'
+import { setScrollTarget } from '@/libs/redux/scroll'
 // interface ServiceRole {
 //   title: string
 //   name: string | string[]
@@ -63,10 +64,8 @@ const ServiceCard: React.FC<ServiceCardProps> = ({ title, name, icon }  ) => {
   )
 }
 export default function MinistryRoster() {
-  const currentDate = new Date('2024-03-10')
   const dataMinistry = useSelector((state :RootState) => state.ministry);
-
-  const isFirstSunday = currentDate.getDate() <= 7 && currentDate.getDay() === 0
+console.log(dataMinistry)
   
   const dataService = useMemo(() => {
     if(dataMinistry.activeTab === 'umum') {
@@ -235,53 +234,11 @@ export default function MinistryRoster() {
   },[dataMinistry])
   const [eventName, setEventName] = useState<string>('');
   const [date, setDate] = useState<string>('');
-  // const futureSchedules: ScheduleEntry[] = [
-  //   {
-  //     date: '17 Maret 2024',
-  //     worshipLeader: 'Sdri. Esther',
-  //     singers: ['Sdri. Anna', 'Sdr. Yohanes', 'Sdri. Maria'],
-  //     musicians: ['Tim A'],
-  //     welcomeTeam: ['Ibu Sarah', 'Bpk. Andreas'],
-  //     tambourine: ['Tim B'],
-  //     offerings: ['Tim B'],
-  //     intercession: ['Bpk. Yohanes'],
-  //     preacher: 'Pdt. Yusuf Santoso',
-  //   },
-  //   {
-  //     date: '24 Maret 2024',
-  //     worshipLeader: 'Bpk. Jonathan',
-  //     singers: ['Sdr. Daniel', 'Sdri. Rachel', 'Sdri. Debora'],
-  //     musicians: ['Tim B'],
-  //     welcomeTeam: ['Ibu Martha', 'Bpk. Petrus'],
-  //     tambourine: ['Tim A'],
-  //     offerings: ['Tim A'],
-  //     intercession: ['Ibu Ruth'],
-  //     preacher: 'Ev. Sarah Gunawan',
-  //   },
-  //   {
-  //     date: '31 Maret 2024',
-  //     worshipLeader: 'Bpk. David',
-  //     singers: ['Sdri. Hannah', 'Sdr. Samuel', 'Sdri. Priska'],
-  //     musicians: ['Tim C'],
-  //     welcomeTeam: ['Ibu Debora', 'Bpk. Markus'],
-  //     tambourine: ['Tim C'],
-  //     offerings: ['Tim C'],
-  //     intercession: ['Bpk. Andreas'],
-  //     preacher: 'Pdt. Yusuf Santoso',
-  //   },
-  //   {
-  //     date: '7 April 2024',
-  //     worshipLeader: 'Sdri. Maria',
-  //     singers: ['Sdr. Yohanes', 'Sdri. Sarah', 'Sdri. Anna'],
-  //     musicians: ['Tim A'],
-  //     welcomeTeam: ['Ibu Ruth', 'Bpk. Samuel'],
-  //     tambourine: ['Tim A'],
-  //     offerings: ['Tim B'],
-  //     intercession: ['Ibu Esther'],
-  //     communion: true,
-  //     preacher: 'Pdt. Yusuf Santoso',
-  //   },
-  // ]
+  const dispatch = useDispatch();
+
+  const pelayananRef = useRef<HTMLDivElement | null>(null);
+  const scrollTarget = useSelector((state: RootState) => state.scroll);
+  console.log(scrollTarget.target)
   useEffect(() => {
     if(dataMinistry.eventName) {
       setEventName(dataMinistry.eventName)
@@ -291,8 +248,20 @@ export default function MinistryRoster() {
   }
     
   }, [dataMinistry]);
+  useEffect(() => {
+    if (scrollTarget.target === "pelayanan") {
+      setTimeout(() => {
+        window.scrollTo({
+          top: pelayananRef.current?.offsetTop || 0,
+          behavior: "smooth",
+        });
+      }, 100);
+      dispatch(setScrollTarget(null));
+    }
+  }, [scrollTarget, dispatch]);
   return (
     <section
+    ref={pelayananRef}
       id="pelayanan"
       className="py-12 md:py-16 bg-gradient-to-br from-gray-50 to-blue-50"
     >
@@ -302,7 +271,7 @@ export default function MinistryRoster() {
         </h2>
         <p className="text-center text-gray-600 mb-8">
           {date}
-          {isFirstSunday && (
+          {(dataMinistry?.ministry as EventDetail).perjamuan?.length !== 0 && dataMinistry.activeTab === 'umum' && (
             <span className="ml-2 inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-red-100 text-red-800">
               <CrossIcon className="w-4 h-4 mr-1" /> Minggu Perjamuan
             </span>

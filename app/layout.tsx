@@ -52,38 +52,38 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
 
-  const jsonLd = {
-    "@context": "https://schema.org",
-    "@type": "Church",
-    "name": "GPdI Shekinah",
-    "address": {
-      "@type": "PostalAddress",
-      "streetAddress": "Graha Harapan Blok E 13 no 2 , Mustika Jaya",
-      "addressLocality": "Kota Bekasi",
-      "addressRegion": "Jawa Barat",
-      "postalCode": "17158",
-      "addressCountry": "ID"
-    },
-    "telephone": "+62 813-1614-5742",
-    "url": "https://www.gpdishekinah.online",
-    "openingHours": "Mo-Su 00:00-23:59",
-    "description": "GPdI Shekinah adalah gereja yang berlokasi di Mustika jaya, dengan ibadah setiap hari Minggu dan dihari lain ada beberapa kegiatan-kegiatan gereja.",
-    "geo": {
-      "@type": "GeoCoordinates",
-      "latitude": "-6.303093633833016",
-      "longitude": " 107.02616911398482"
-    }
-  }
+  // const jsonLd = {
+  //   "@context": "https://schema.org",
+  //   "@type": "Church",
+  //   "name": "GPdI Shekinah",
+  //   "address": {
+  //     "@type": "PostalAddress",
+  //     "streetAddress": "Graha Harapan Blok E 13 no 2 , Mustika Jaya",
+  //     "addressLocality": "Kota Bekasi",
+  //     "addressRegion": "Jawa Barat",
+  //     "postalCode": "17158",
+  //     "addressCountry": "ID"
+  //   },
+  //   "telephone": "+62 813-1614-5742",
+  //   "url": "https://www.gpdishekinah.online",
+  //   "openingHours": "Mo-Su 00:00-23:59",
+  //   "description": "GPdI Shekinah adalah gereja yang berlokasi di Mustika jaya, dengan ibadah setiap hari Minggu dan dihari lain ada beberapa kegiatan-kegiatan gereja.",
+  //   "geo": {
+  //     "@type": "GeoCoordinates",
+  //     "latitude": "-6.303093633833016",
+  //     "longitude": " 107.02616911398482"
+  //   }
+  // }
   return (
     <html lang="en">
       <body
         suppressHydrationWarning
-        className={`${geistSans.variable} ${geistMono.variable} antialiased`}
+        className={`${geistSans.variable} ${geistMono.variable} antialiased overflow-x-hidden`}
       >
-         <script
+         {/* <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
-        />
+        /> */}
         <ReduxProvider>{children}</ReduxProvider>
       </body>
     </html>

@@ -1,9 +1,10 @@
 "use client";
-import React, { useEffect } from "react";
-import { CalendarIcon, UsersIcon, HomeIcon } from "lucide-react";
-import { useDispatch, useSelector } from "react-redux";
 import { setMinistry } from "@/libs/redux/ministryroster";
+import { setScrollTarget } from "@/libs/redux/scroll";
 import { RootState } from "@/libs/store/store";
+import { CalendarIcon, HomeIcon, UsersIcon } from "lucide-react";
+import { useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
 interface ScheduleInterface {
   title: string;
   date: string;
@@ -121,28 +122,38 @@ export default function WorshipSchedules({ data }: { data: Event[] }) {
   .filter((komsel) => {
     const komselDate = new Date(komsel.dateKomsel);
     return komselDate.setHours(23,59,59,999) >= today;
+  }).sort((a,b) => {
+    const firstDate = new Date(a.dateKomsel)
+    const secondDate = new Date(b.dateKomsel)
+    return firstDate.getTime() - secondDate.getTime()
   });
   useEffect(() => {
     dispatch(
       setMinistry({
         activeTab: "umum",
         ministry: data.filter((a) =>
-          ["ibadahPagi", "ibadahSiang", "ibadahSore"].includes(a.eventName)
+          ["ibadahPagi", "ibadahSiang", "ibadahSore"].includes(a.eventName)  &&
+        new Date(a.dateEvent).setHours(23,59,59,999) >= today
+      
         )[0].event,
         dateEvent: data.filter((a) =>
-          ["ibadahPagi", "ibadahSiang", "ibadahSore"].includes(a.eventName)
+          ["ibadahPagi", "ibadahSiang", "ibadahSore"].includes(a.eventName)  &&
+        new Date(a.dateEvent).setHours(23,59,59,999) >= today
+      
         )[0].dateEvent,
         eventName: data.filter((a) =>
-          ["ibadahPagi", "ibadahSiang", "ibadahSore"].includes(a.eventName)
+          ["ibadahPagi", "ibadahSiang", "ibadahSore"].includes(a.eventName)  &&
+        new Date(a.dateEvent).setHours(23,59,59,999) >= today
+      
         )[0].eventName,
       })
     );
   }, []);
   const tabStyle = (isActive: boolean) =>
-    `flex items-center px-4 py-2 rounded-md mx-1 mb-2 cursor-pointer transition duration-300 ${
+    `flex items-center px-4 py-2 rounded-md mx-1 mb-2 cursor-pointer z-20 transition duration-300 ${
       isActive
-        ? "bg-gradient-to-r from-blue-600 to-indigo-600 text-white shadow-md"
-        : "bg-gray-100 text-gray-500 hover:bg-gray-300"
+        ? "bg-gradient-to-r from-blue-600 to-indigo-600 text-white shadow-md "
+        : "bg-gray-100 text-gray-500 hover:bg-gray-300 "
     }`;
   return (
     <section
@@ -156,7 +167,7 @@ export default function WorshipSchedules({ data }: { data: Event[] }) {
         <div className="flex flex-wrap justify-center mb-8">
           <button
             className={tabStyle(dataMinistry.activeTab === "umum")}
-            onClick={() =>
+            onClick={() =>{
               dispatch(
                 setMinistry({
                   activeTab: "umum",
@@ -180,6 +191,7 @@ export default function WorshipSchedules({ data }: { data: Event[] }) {
                   )[0].eventName,
                 })
               )
+              }
             }
           >
             <CalendarIcon className="h-4 w-4 mr-2" />
@@ -210,10 +222,10 @@ export default function WorshipSchedules({ data }: { data: Event[] }) {
               Ibadah Pemuda
             </button>
           )}
-          {komselData.length > 0 && (
+          {/* {komselData.length > 0 && ( */}
             <button
               className={tabStyle(dataMinistry.activeTab === "keluarga")}
-              onClick={() =>
+              onClick={() => {
                 dispatch(
                   setMinistry({
                     activeTab: "keluarga",
@@ -222,12 +234,14 @@ export default function WorshipSchedules({ data }: { data: Event[] }) {
                     eventName: komselData[0].name,
                   })
                 )
+console.log(komselData[0],'ini komsel 0')
+              }
               }
             >
               <HomeIcon className="h-4 w-4 mr-2" />
               Ibadah Komsel
             </button>
-          )}
+          {/* )} */}
         </div>
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
           {dataMinistry.activeTab === "umum" && (
@@ -264,6 +278,7 @@ export default function WorshipSchedules({ data }: { data: Event[] }) {
                           eventName: e.eventName,
                         })
                       );
+                      dispatch(setScrollTarget('pelayanan'))
                     }}
                   />
                 ))}

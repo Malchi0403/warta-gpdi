@@ -2,6 +2,7 @@ import { configureStore, combineReducers } from "@reduxjs/toolkit";
 import { persistStore, persistReducer } from "redux-persist";
 import storage from "redux-persist/lib/storage"; // localStorage
 import ministryReducer from '@/libs/redux/ministryroster'
+import scrollReducer from '@/libs/redux/scroll'
 const persistConfig = {
   key: "root",
   storage,
@@ -10,6 +11,7 @@ const persistConfig = {
 
 const rootReducer = combineReducers({
   ministry: ministryReducer,
+  scroll: scrollReducer
 });
 
 const persistedReducer = persistReducer(persistConfig, rootReducer);
