@@ -1,7 +1,6 @@
 'use client'
 import {
   BookOpenCheckIcon,
-  CrossIcon,
   HandIcon,
   Handshake,
   HeartIcon,
@@ -271,11 +270,11 @@ console.log(dataMinistry)
         </h2>
         <p className="text-center text-gray-600 mb-8">
           {date}
-          {(dataMinistry?.ministry as EventDetail).perjamuan?.length !== 0 && dataMinistry.activeTab === 'umum' && (
+          {/* {(dataMinistry?.ministry as EventDetail).perjamuan?.length !== 0 && dataMinistry.activeTab === 'umum' && (
             <span className="ml-2 inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-red-100 text-red-800">
               <CrossIcon className="w-4 h-4 mr-1" /> Minggu Perjamuan
             </span>
-          )}
+          )} */}
         </p>
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
           {dataService?.map((service, index) => (
