@@ -111,44 +111,90 @@ function ScheduleCard({
     </div>
   );
 }
+
+type Bulan =
+  | "januari"
+  | "februari"
+  | "maret"
+  | "april"
+  | "mei"
+  | "juni"
+  | "juli"
+  | "agustus"
+  | "september"
+  | "oktober"
+  | "november"
+  | "desember";
+
+const bulanMap: { [key in Bulan]: string } = {
+  januari: "January",
+  februari: "February",
+  maret: "March",
+  april: "April",
+  mei: "May",
+  juni: "June",
+  juli: "July",
+  agustus: "August",
+  september: "September",
+  oktober: "October",
+  november: "November",
+  desember: "December",
+};
+
 export default function WorshipSchedules({ data }: { data: Event[] }) {
   const dataMinistry = useSelector((state: RootState) => state.ministry);
   const dispatch = useDispatch();
   // const today = new Date()
   const today = new Date().getTime();
   const komselData = data
-  .map((a) => a.komsel || [])
-  .flat()
-  .filter((komsel) => {
-    const komselDate = new Date(komsel.dateKomsel);
-    return komselDate.setHours(23,59,59,999) >= today;
-  }).sort((a,b) => {
-    const firstDate = new Date(a.dateKomsel)
-    const secondDate = new Date(b.dateKomsel)
-    return firstDate.getTime() - secondDate.getTime()
-  });
+    .map((a) => a.komsel || [])
+    .flat()
+    .filter((komsel) => {
+      const komselDate = new Date(komsel.dateKomsel);
+      return komselDate.setHours(23, 59, 59, 999) >= today;
+    })
+    .sort((a, b) => {
+      const firstDate = new Date(a.dateKomsel);
+      const secondDate = new Date(b.dateKomsel);
+      return firstDate.getTime() - secondDate.getTime();
+    });
+  function formatDate(str: string): Date {
+    const [tanggal, bulan, tahun] = str.toLowerCase().split(" ") as [
+      string,
+      Bulan,
+      string
+    ];
+    const bulanInggris = bulanMap[bulan];
+    return new Date(`${tanggal} ${bulanInggris} ${tahun}`);
+  }
+
   useEffect(() => {
-    dispatch(
-      setMinistry({
-        activeTab: "umum",
-        ministry: data.filter((a) =>
-          ["ibadahPagi", "ibadahSiang", "ibadahSore"].includes(a.eventName)  &&
-        new Date(a.dateEvent).setHours(23,59,59,999) >= today
-      
-        )[0].event,
-        dateEvent: data.filter((a) =>
-          ["ibadahPagi", "ibadahSiang", "ibadahSore"].includes(a.eventName)  &&
-        new Date(a.dateEvent).setHours(23,59,59,999) >= today
-      
-        )[0].dateEvent,
-        eventName: data.filter((a) =>
-          ["ibadahPagi", "ibadahSiang", "ibadahSore"].includes(a.eventName)  &&
-        new Date(a.dateEvent).setHours(23,59,59,999) >= today
-      
-        )[0].eventName,
-      })
-    );
-  }, []);
+    if (data) {
+      dispatch(
+        setMinistry({
+          activeTab: "umum",
+          ministry: data.filter(
+            (a) =>
+              ["ibadahPagi", "ibadahSiang", "ibadahSore"].includes(
+                a?.eventName
+              ) && formatDate(a?.dateEvent).setHours(23, 59, 59, 999) >= today
+          )[0]?.event,
+          dateEvent: data.filter(
+            (a) =>
+              ["ibadahPagi", "ibadahSiang", "ibadahSore"].includes(
+                a?.eventName
+              ) && formatDate(a?.dateEvent).setHours(23, 59, 59, 999) >= today
+          )[0]?.dateEvent,
+          eventName: data.filter(
+            (a) =>
+              ["ibadahPagi", "ibadahSiang", "ibadahSore"].includes(
+                a?.eventName
+              ) && formatDate(a?.dateEvent).setHours(23, 59, 59, 999) >= today
+          )[0]?.eventName,
+        })
+      );
+    }
+  }, [data]);
   const tabStyle = (isActive: boolean) =>
     `flex items-center px-4 py-2 rounded-md mx-1 mb-2 cursor-pointer z-20 transition duration-300 ${
       isActive
@@ -167,53 +213,67 @@ export default function WorshipSchedules({ data }: { data: Event[] }) {
         <div className="flex flex-wrap justify-center mb-8">
           <button
             className={tabStyle(dataMinistry.activeTab === "umum")}
-            onClick={() =>{
+            onClick={() => {
               dispatch(
                 setMinistry({
                   activeTab: "umum",
-                  ministry: data.filter((a) =>
-                    ["ibadahPagi", "ibadahSiang", "ibadahSore"].includes(
-                      a.eventName
-                    ) &&
-                    new Date(a.dateEvent).setHours(23,59,59,999) >= today
+                  ministry: data.filter(
+                    (a) =>
+                      ["ibadahPagi", "ibadahSiang", "ibadahSore"].includes(
+                        a.eventName
+                      ) &&
+                      formatDate(a.dateEvent).setHours(23, 59, 59, 999) >= today
                   )[0].event,
-                  dateEvent: data.filter((a) =>
-                    ["ibadahPagi", "ibadahSiang", "ibadahSore"].includes(
-                      a.eventName
-                    ) &&
-                    new Date(a.dateEvent).setHours(23,59,59,999) >= today
+                  dateEvent: data.filter(
+                    (a) =>
+                      ["ibadahPagi", "ibadahSiang", "ibadahSore"].includes(
+                        a.eventName
+                      ) &&
+                      formatDate(a.dateEvent).setHours(23, 59, 59, 999) >= today
                   )[0].dateEvent,
-                  eventName: data.filter((a) =>
-                    ["ibadahPagi", "ibadahSiang", "ibadahSore"].includes(
-                      a.eventName
-                    ) &&
-                    new Date(a.dateEvent).setHours(23,59,59,999) >= today
+                  eventName: data.filter(
+                    (a) =>
+                      ["ibadahPagi", "ibadahSiang", "ibadahSore"].includes(
+                        a.eventName
+                      ) &&
+                      formatDate(a.dateEvent).setHours(23, 59, 59, 999) >= today
                   )[0].eventName,
                 })
-              )
-              }
-            }
+              );
+            }}
           >
             <CalendarIcon className="h-4 w-4 mr-2" />
             Ibadah Umum
           </button>
-          {data.filter((a) => a.eventName === "pemuda" &&
-      new Date(a.dateEvent).setHours(23,59,59,999) >= today).length > 0 && (
+          {data.filter(
+            (a) =>
+              a.eventName === "pemuda" &&
+              formatDate(a.dateEvent).setHours(23, 59, 59, 999) >= today
+          ).length > 0 && (
             <button
               className={tabStyle(dataMinistry.activeTab === "pemuda")}
               onClick={() =>
                 dispatch(
                   setMinistry({
                     activeTab: "pemuda",
-                    ministry: data.filter((a) => a.eventName === "pemuda" &&
-                    new Date(a.dateEvent).setHours(23,59,59,999) >= today)[0]
-                      .event,
-                    dateEvent: data.filter((a) => a.eventName === "pemuda" &&
-                    new Date(a.dateEvent).setHours(23,59,59,999) >= today)[0]
-                      .dateEvent,
-                    eventName: data.filter((a) => a.eventName === "pemuda" &&
-                    new Date(a.dateEvent).setHours(23,59,59,999) >= today)[0]
-                      .eventName,
+                    ministry: data.filter(
+                      (a) =>
+                        a.eventName === "pemuda" &&
+                        formatDate(a.dateEvent).setHours(23, 59, 59, 999) >=
+                          today
+                    )[0].event,
+                    dateEvent: data.filter(
+                      (a) =>
+                        a.eventName === "pemuda" &&
+                        formatDate(a.dateEvent).setHours(23, 59, 59, 999) >=
+                          today
+                    )[0].dateEvent,
+                    eventName: data.filter(
+                      (a) =>
+                        a.eventName === "pemuda" &&
+                        formatDate(a.dateEvent).setHours(23, 59, 59, 999) >=
+                          today
+                    )[0].eventName,
                   })
                 )
               }
@@ -223,35 +283,35 @@ export default function WorshipSchedules({ data }: { data: Event[] }) {
             </button>
           )}
           {/* {komselData.length > 0 && ( */}
-            <button
-              className={tabStyle(dataMinistry.activeTab === "keluarga")}
-              onClick={() => {
-                dispatch(
-                  setMinistry({
-                    activeTab: "keluarga",
-                    ministry: komselData[0],
-                    dateEvent: komselData[0].dateKomsel,
-                    eventName: komselData[0].name,
-                  })
-                )
-console.log(komselData[0],'ini komsel 0')
-              }
-              }
-            >
-              <HomeIcon className="h-4 w-4 mr-2" />
-              Ibadah Komsel
-            </button>
+          <button
+            className={tabStyle(dataMinistry.activeTab === "keluarga")}
+            onClick={() => {
+              dispatch(
+                setMinistry({
+                  activeTab: "keluarga",
+                  ministry: komselData[0],
+                  dateEvent: komselData[0].dateKomsel,
+                  eventName: komselData[0].name,
+                })
+              );
+              console.log(komselData[0], "ini komsel 0");
+            }}
+          >
+            <HomeIcon className="h-4 w-4 mr-2" />
+            Ibadah Komsel
+          </button>
           {/* )} */}
         </div>
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
           {dataMinistry.activeTab === "umum" && (
             <>
               {data
-                .filter((a) =>
-                  ["ibadahPagi", "ibadahSiang", "ibadahSore"].includes(
-                    a.eventName
-                  ) &&
-                  new Date(a.dateEvent).setHours(23,59,59,999) >= today
+                .filter(
+                  (a) =>
+                    ["ibadahPagi", "ibadahSiang", "ibadahSore"].includes(
+                      a.eventName
+                    ) &&
+                    formatDate(a.dateEvent).setHours(23, 59, 59, 999) >= today
                 )
                 .map((e, i) => (
                   <ScheduleCard
@@ -278,7 +338,7 @@ console.log(komselData[0],'ini komsel 0')
                           eventName: e.eventName,
                         })
                       );
-                      dispatch(setScrollTarget('pelayanan'))
+                      dispatch(setScrollTarget("pelayanan"));
                     }}
                   />
                 ))}
@@ -287,8 +347,11 @@ console.log(komselData[0],'ini komsel 0')
           {dataMinistry.activeTab === "pemuda" && (
             <>
               {data
-                .filter((a) => a.eventName === "pemuda" &&
-                new Date(a.dateEvent).setHours(23,59,59,999) >= today)
+                .filter(
+                  (a) =>
+                    a.eventName === "pemuda" &&
+                    formatDate(a.dateEvent).setHours(23, 59, 59, 999) >= today
+                )
                 .map((e, i) => (
                   <ScheduleCard
                     key={i}
