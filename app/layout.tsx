@@ -3,7 +3,7 @@ import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
 import Head from "next/head";
-
+import { Analytics } from "@vercel/analytics/react"
 const geistSans = Geist({
   variable: "--font-geist-sans",
   subsets: ["latin"],
@@ -22,6 +22,8 @@ export const metadata: Metadata = {
     "GPdI Shekinah",
     "gpdi",
     "shekinah",
+    "SHEKINAH",
+    "mustika jaya",
     "gereja mustika jaya",
     "mustika jaya",
     "ibadah minggu",
@@ -102,6 +104,7 @@ export default function RootLayout({
           dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
         /> */}
         <ReduxProvider>{children}</ReduxProvider>
+        <Analytics />
       </body>
     </html>
   );
