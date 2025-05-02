@@ -282,7 +282,7 @@ export default function WorshipSchedules({ data }: { data: Event[] }) {
               Ibadah Pemuda
             </button>
           )}
-          {/* {komselData.length > 0 && ( */}
+          {komselData.length > 0 && (
           <button
             className={tabStyle(dataMinistry.activeTab === "keluarga")}
             onClick={() => {
@@ -300,7 +300,7 @@ export default function WorshipSchedules({ data }: { data: Event[] }) {
             <HomeIcon className="h-4 w-4 mr-2" />
             Ibadah Komsel
           </button>
-          {/* )} */}
+           )} 
         </div>
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
           {dataMinistry.activeTab === "umum" && (
