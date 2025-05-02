@@ -1,8 +1,18 @@
+import Image from 'next/image'
 import React from 'react'
 export default function Hero() {
   return (
-    <section className="bg-gradient-to-br from-blue-900 via-indigo-900 to-blue-900 text-white py-16 md:py-24 relative overflow-hidden">
-      <div className="absolute inset-0 bg-[url('https://images.unsplash.com/photo-1438232992991-995b7058bbb3?ixlib=rb-4.0.3')] opacity-10 bg-cover bg-center"></div>
+    <section className="bg-gradient-to-br from-blue-900 via-indigo-900 to-blue-900 text-white py-16 md:py-28 relative overflow-hidden">
+      {/* <div className="absolute inset-0 bg-[url('/assets/web.webp')] opacity-10 bg-cover bg-bottom"></div> */}
+      <div className="w-screen absolute inset-0 opacity-10 h-full">
+        <Image 
+        src={"/assets/web.webp"}
+        alt='background'
+        fill
+           className="w-full h-full "
+        />
+        
+      </div>
       <div className="container mx-auto px-4 text-center relative z-10">
         <h2 className=" text-3xl md:text-5xl font-bold mb-4 bg-clip-text text-transparent bg-gradient-to-r from-yellow-500 via-yellow-200 to-yellow-400">
           Selamat Datang di Warta Jemaat
