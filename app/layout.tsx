@@ -1,18 +1,14 @@
 import ReduxProvider from "@/libs/provider";
+import { Analytics } from "@vercel/analytics/react";
 import type { Metadata } from "next";
-import { Geist, Geist_Mono } from "next/font/google";
-import "./globals.css";
+import { Geist } from "next/font/google";
 import Head from "next/head";
-import { Analytics } from "@vercel/analytics/react"
+import "./globals.css";
 const geistSans = Geist({
   variable: "--font-geist-sans",
   subsets: ["latin"],
 });
 
-const geistMono = Geist_Mono({
-  variable: "--font-geist-mono",
-  subsets: ["latin"],
-});
 
 export const metadata: Metadata = {
   title: "GPdI Shekinah GRAHA HARAPAN",
@@ -97,7 +93,7 @@ export default function RootLayout({
       </Head>
       <body
         suppressHydrationWarning
-        className={`${geistSans.variable} ${geistMono.variable} antialiased overflow-x-hidden`}
+        className={`${geistSans.variable}  antialiased overflow-x-hidden`}
       >
          {/* <script
           type="application/ld+json"

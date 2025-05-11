@@ -36,27 +36,8 @@ export default function Footer() {
                 <YoutubeIcon className="h-5 w-5" />
               </a>
             </div> */}
-          </div>
-          <div>
-            <h3 className="text-xl font-bold mb-4">Hubungi Kami</h3>
-            <ul className="space-y-3">
-              <li className="flex items-start">
-                <PhoneIcon className="h-5 w-5 mr-2 mt-0.5 text-blue-300" />
-                <span>(+62) 8131-6145-742</span>
-              </li>
-              {/* <li className="flex items-start">
-                <MailIcon className="h-5 w-5 mr-2 mt-0.5 text-blue-300" />
-                <span>info@gpdihermon.org</span>
-              </li> */}
-              <li className="flex items-start">
-                <MapPinIcon className="h-5 w-5 mr-2 mt-0.5 text-blue-300" />
-                <span>
-                  Graha Harapan Blok E 13 No 2, Mustika Jaya, Kota Bekasi, Jawa Barat
-                </span>
-              </li>
-            </ul>
-          </div>
-          <div>
+            {/* <div className='my-4'> */}
+<div>
             <h3 className="text-xl font-bold mb-4">Jam Ibadah Reguler</h3>
             <ul className="space-y-3">
               <li className="flex items-start">
@@ -82,6 +63,33 @@ export default function Footer() {
               </li>
             </ul>
           </div>
+            
+            {/* </div> */}
+          </div>
+          <div>
+            <h3 className="text-xl font-bold mb-4">Hubungi Kami</h3>
+            <ul className="space-y-3">
+              <li className="flex items-start">
+                <PhoneIcon className="h-5 w-5 mr-2 mt-0.5 text-blue-300" />
+                <span>(+62) 8131-6145-742</span>
+              </li>
+              {/* <li className="flex items-start">
+                <MailIcon className="h-5 w-5 mr-2 mt-0.5 text-blue-300" />
+                <span>info@gpdihermon.org</span>
+              </li> */}
+              <li className="flex items-start">
+                <MapPinIcon className="h-5 w-5 mr-2 mt-0.5 text-blue-300" />
+                <span>
+                  Graha Harapan Blok E 13 No 2, Mustika Jaya, Kota Bekasi, Jawa Barat
+                </span>
+              </li>
+            </ul>
+          </div>
+         <iframe src="https://storage.googleapis.com/maps-solutions-sgccwx2lfq/locator-plus/jflh/locator-plus.html"
+  width="100%" height="100%"
+  loading="lazy">
+</iframe>
+          
         </div>
         <div className="border-t border-blue-800 pt-6 text-center text-blue-300 text-sm">
           <p>&copy; 2024 GPdI Shekinah GRAHA HARAPAN. Hak Cipta Dilindungi.</p>
