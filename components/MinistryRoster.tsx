@@ -64,7 +64,6 @@ const ServiceCard: React.FC<ServiceCardProps> = ({ title, name, icon }  ) => {
 }
 export default function MinistryRoster() {
   const dataMinistry = useSelector((state :RootState) => state.ministry);
-console.log(dataMinistry)
   
   const dataService = useMemo(() => {
     if(dataMinistry.activeTab === 'umum') {
@@ -237,7 +236,6 @@ console.log(dataMinistry)
 
   const pelayananRef = useRef<HTMLDivElement | null>(null);
   const scrollTarget = useSelector((state: RootState) => state.scroll);
-  console.log(scrollTarget.target)
   useEffect(() => {
     if(dataMinistry.eventName) {
       setEventName(dataMinistry.eventName)

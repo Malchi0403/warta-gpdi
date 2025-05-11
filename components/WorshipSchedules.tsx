@@ -202,7 +202,6 @@ export default function WorshipSchedules({ data }: { data: Event[] }) {
         ? "bg-gradient-to-r from-blue-600 to-indigo-600 text-white shadow-md "
         : "bg-gray-100 text-gray-500 hover:bg-gray-300 "
     }`;
-    console.log(komselData)
   return (
     <section
       id="jadwal"
@@ -295,7 +294,6 @@ export default function WorshipSchedules({ data }: { data: Event[] }) {
                   eventName: komselData[0].name,
                 })
               );
-              console.log(komselData[0], "ini komsel 0");
             }}
           >
             <HomeIcon className="h-4 w-4 mr-2" />
