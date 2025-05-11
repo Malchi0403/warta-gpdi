@@ -15,9 +15,9 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "GPdI Shekinah - Mustika Jaya",
+  title: "GPdI Shekinah GRAHA HARAPAN",
   description:
-    "Selamat datang di Warta Jemaat GPdI Shekinah Mustika Jaya",
+    "Selamat datang di Warta Jemaat GPdI Shekinah GRAHA HARAPAN",
   keywords: [
     "GPdI Shekinah",
     "gpdi",
@@ -43,7 +43,7 @@ export const metadata: Metadata = {
     "GPdI",
   ],
   openGraph: {
-    title: "GPdI Shekinah - Mustika jaya",
+    title: "GPdI Shekinah GRAHA HARAPAN",
     description:
       "Selamat datang Warta Jemaat GPdI Shekinah Mustika Jaya",
     url: "https://www.gpdishekinah.online",
@@ -71,7 +71,7 @@ export default function RootLayout({
     "name": "GPdI Shekinah",
     "address": {
       "@type": "PostalAddress",
-      "streetAddress": "Graha Harapan Blok E 13 no 2 , Mustika Jaya",
+      "streetAddress": "Graha Harapan Blok E 13 No 2, Mustika Jaya",
       "addressLocality": "Kota Bekasi",
       "addressRegion": "Jawa Barat",
       "postalCode": "17158",

@@ -51,7 +51,7 @@ export default function Footer() {
               <li className="flex items-start">
                 <MapPinIcon className="h-5 w-5 mr-2 mt-0.5 text-blue-300" />
                 <span>
-                  Graha Harapan Blok E 13/2 , Mustika Jaya
+                  Graha Harapan Blok E 13 No 2, Mustika Jaya, Kota Bekasi, Jawa Barat
                 </span>
               </li>
             </ul>
@@ -84,7 +84,7 @@ export default function Footer() {
           </div>
         </div>
         <div className="border-t border-blue-800 pt-6 text-center text-blue-300 text-sm">
-          <p>&copy; 2024 GPdI Shekinah (Mustika Jaya). Hak Cipta Dilindungi.</p>
+          <p>&copy; 2024 GPdI Shekinah GRAHA HARAPAN. Hak Cipta Dilindungi.</p>
         </div>
       </div>
     </footer>
