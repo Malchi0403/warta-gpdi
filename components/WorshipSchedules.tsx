@@ -146,18 +146,7 @@ export default function WorshipSchedules({ data }: { data: Event[] }) {
   const dispatch = useDispatch();
   // const today = new Date()
   const today = new Date().getTime();
-  const komselData = data
-    .map((a) => a.komsel || [])
-    .flat()
-    .filter((komsel) => {
-      const komselDate = new Date(komsel.dateKomsel);
-      return komselDate.setHours(23, 59, 59, 999) >= today;
-    })
-    .sort((a, b) => {
-      const firstDate = new Date(a.dateKomsel);
-      const secondDate = new Date(b.dateKomsel);
-      return firstDate.getTime() - secondDate.getTime();
-    });
+ 
   function formatDate(str: string): Date {
     const [tanggal, bulan, tahun] = str.toLowerCase().split(" ") as [
       string,
@@ -167,6 +156,18 @@ export default function WorshipSchedules({ data }: { data: Event[] }) {
     const bulanInggris = bulanMap[bulan];
     return new Date(`${tanggal} ${bulanInggris} ${tahun}`);
   }
+   const komselData = data
+    .map((a) => a.komsel || [])
+    .flat()
+    .filter((komsel) => {
+      const komselDate = formatDate(komsel.dateKomsel);
+      return komselDate.setHours(23, 59, 59, 999) >= today;
+    })
+    .sort((a, b) => {
+      const firstDate = formatDate(a.dateKomsel);
+      const secondDate = formatDate(b.dateKomsel);
+      return firstDate.getTime() - secondDate.getTime();
+    });
 
   useEffect(() => {
     if (data) {
@@ -201,6 +202,7 @@ export default function WorshipSchedules({ data }: { data: Event[] }) {
         ? "bg-gradient-to-r from-blue-600 to-indigo-600 text-white shadow-md "
         : "bg-gray-100 text-gray-500 hover:bg-gray-300 "
     }`;
+    console.log(komselData)
   return (
     <section
       id="jadwal"
