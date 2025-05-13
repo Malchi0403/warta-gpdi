@@ -41,18 +41,18 @@ export const metadata: Metadata = {
   ],
   openGraph: {
     title: "GPdI Shekinah GRAHA HARAPAN",
-    description: "Selamat datang Warta Jemaat GPdI Shekinah Mustika Jaya",
-    url: "https://www.gpdishekinah.online",
+    description: "Selamat datang Warta Jemaat GPdI Shekinah Graha Harapan , Mustika Jaya .",
+    url: "https://gpdishekinah.online",
     type: "website",
     // Uncomment kalau ada image:
-    // images: [
-    //   {
-    //     url: "https://gpdishekinah.online/og-image.jpg",
-    //     width: 1200,
-    //     height: 630,
-    //     alt: "GPdI Shekinah - Mustika Jaya",
-    //   },
-    // ],
+    images: [
+      {
+        url: "https://gpdishekinah.online/assets/logoGPdI.jpeg",
+        width: 1200,
+        height: 630,
+        alt: "GPdI Shekinah - Graha harapan",
+      },
+    ],
   },
 };
 
