@@ -17,7 +17,7 @@ export default function Header() {
                 <Image src={'/assets/logoGPdI.jpeg'} width={30} height={30} className='w-9 h-9' alt='GPdI' />
           {/* <BookOpenIcon className="h-8 w-8 text-yellow-400" /> */}
           <div>
-            <h1 className="text-xl font-bold">GPdI Shekinah</h1>
+            <h1 className="text-xl font-bold">GPdI Shekinah Graha Harapan</h1>
             <p className="text-xs md:text-sm text-yellow-200">
               Warta Jemaat
             </p>

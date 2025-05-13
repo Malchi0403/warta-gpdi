@@ -2,18 +2,22 @@ import ReduxProvider from "@/libs/provider";
 import { Analytics } from "@vercel/analytics/react";
 import type { Metadata } from "next";
 import { Geist } from "next/font/google";
-import Head from "next/head";
 import "./globals.css";
+
 const geistSans = Geist({
   variable: "--font-geist-sans",
   subsets: ["latin"],
 });
 
+// Font Awesome config
+import { config } from "@fortawesome/fontawesome-svg-core";
+import "@fortawesome/fontawesome-svg-core/styles.css";
+config.autoAddCss = false;
 
+// ✅ Metadata untuk <head>
 export const metadata: Metadata = {
   title: "GPdI Shekinah GRAHA HARAPAN",
-  description:
-    "Selamat datang di Warta Jemaat GPdI Shekinah GRAHA HARAPAN",
+  description: "Selamat datang di Warta Jemaat GPdI Shekinah GRAHA HARAPAN",
   keywords: [
     "GPdI Shekinah",
     "gpdi",
@@ -21,32 +25,29 @@ export const metadata: Metadata = {
     "SHEKINAH",
     "mustika jaya",
     "gereja mustika jaya",
-    "mustika jaya",
+    "gereja graha harapan",
+    "gereja terdekat",
     "ibadah minggu",
     "praise and worship",
-    "praise",
     "worship",
-    "pantekosta",
     "pantekosta",
     "gereja",
     "ibadah",
-    "kasih",
     "komunitas",
     "pemuda",
     "youth service",
-    "youth",
     "church",
     "GPdI",
   ],
   openGraph: {
     title: "GPdI Shekinah GRAHA HARAPAN",
-    description:
-      "Selamat datang Warta Jemaat GPdI Shekinah Mustika Jaya",
+    description: "Selamat datang Warta Jemaat GPdI Shekinah Mustika Jaya",
     url: "https://www.gpdishekinah.online",
     type: "website",
+    // Uncomment kalau ada image:
     // images: [
     //   {
-    //     url: "https://gpdiskhinah.com/og-image.jpg",
+    //     url: "https://gpdishekinah.online/og-image.jpg",
     //     width: 1200,
     //     height: 630,
     //     alt: "GPdI Shekinah - Mustika Jaya",
@@ -57,10 +58,10 @@ export const metadata: Metadata = {
 
 export default function RootLayout({
   children,
-}: Readonly<{
+}: {
   children: React.ReactNode;
-}>) {
-
+}) {
+  // ✅ JSON-LD schema.org
   const jsonLd = {
     "@context": "https://schema.org",
     "@type": "Church",
@@ -71,35 +72,34 @@ export default function RootLayout({
       "addressLocality": "Kota Bekasi",
       "addressRegion": "Jawa Barat",
       "postalCode": "17158",
-      "addressCountry": "ID"
+      "addressCountry": "ID",
     },
     "telephone": "+62 813-1614-5742",
     "url": "https://www.gpdishekinah.online",
     "openingHours": "Mo-Su 00:00-23:59",
-    "description": "GPdI Shekinah adalah gereja yang berlokasi di Mustika jaya, dengan ibadah setiap hari Minggu dan dihari lain ada beberapa kegiatan-kegiatan gereja.",
+    "description":
+      "GPdI Shekinah adalah gereja yang berlokasi di Mustika jaya, dengan ibadah setiap hari Minggu dan di hari lain ada beberapa kegiatan gereja.",
     "geo": {
       "@type": "GeoCoordinates",
       "latitude": "-6.303093633833016",
-      "longitude": " 107.02616911398482"
-    }
-  }
+      "longitude": "107.02616911398482", // ✅ TANPA SPASI
+    },
+  };
+
   return (
-    <html lang="en">
-      <Head>
-      <script
+    <html lang="id">
+      <body
+        suppressHydrationWarning
+        className={`${geistSans.variable} antialiased overflow-x-hidden`}
+      >
+        <ReduxProvider>{children}</ReduxProvider>
+
+        {/* ✅ JSON-LD di dalam <body>, valid & dikenali Google */}
+        <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
         />
-      </Head>
-      <body
-        suppressHydrationWarning
-        className={`${geistSans.variable}  antialiased overflow-x-hidden`}
-      >
-         {/* <script
-          type="application/ld+json"
-          dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
-        /> */}
-        <ReduxProvider>{children}</ReduxProvider>
+
         <Analytics />
       </body>
     </html>
