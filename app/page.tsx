@@ -22,7 +22,7 @@ export interface VideoFacebook  {
 };
 
 async function getFbVideos(): Promise<VideoFacebook[]> {
-  const res = await fetch('https://gpdishekinah.online/api', {
+  const res = await fetch('http://localhost:3000/api', {
     // wajib cache: 'no-store' agar selalu fresh (SSR)
     cache: 'no-store',
   });

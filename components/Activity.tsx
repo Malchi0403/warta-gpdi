@@ -14,13 +14,13 @@ const Activity = ({ dataVideo }: { dataVideo: VideoFacebook[] }) => {
           className="border rounded overflow-hidden shadow p-4 sm:max-w-[30%]  bg-white"
         >
           <div className="!aspect-video">
-            <video className='w-full h-full object-cover'  poster={video.thumbnails?.data?.[0]?.uri || undefined}  playsInline controls preload="none">
+            <video className='w-full h-full '  poster={video.thumbnails?.data?.[0]?.uri || undefined}  playsInline controls preload="none">
       <source src={video.source} type="video/mp4" />
 
       
     </video>
           </div>
-          <h1 className="mt-2 text-sm line-clamp-3 text-black">{video.title}</h1>
+          <h1 className="mt-2 text-base font-semibold capitalize line-clamp-3 text-black">{video.title}</h1>
           <p className="mt-2 text-sm line-clamp-3 text-black">{video.description}</p>
         </div>
       ))}
