@@ -64,7 +64,7 @@ export default function RootLayout({
   // ✅ JSON-LD schema.org
   const jsonLd = {
     "@context": "https://schema.org",
-    "@type": "Church",
+    "@type": "Gereja",
     "name": "GPdI Shekinah",
     "address": {
       "@type": "PostalAddress",
