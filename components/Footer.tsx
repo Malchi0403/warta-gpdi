@@ -5,9 +5,7 @@ import {
 } from "@fortawesome/free-brands-svg-icons";
 import { faPhone } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import {
-  ClockIcon
-} from "lucide-react";
+import { ClockIcon } from "lucide-react";
 
 export default function Footer() {
   return (
@@ -15,7 +13,9 @@ export default function Footer() {
       <div className="container mx-auto px-4">
         <div className="grid grid-cols-1 md:grid-cols-3 gap-8 mb-8">
           <div>
-            <h3 className="text-xl font-bold mb-4">GPdI Shekinah Graha Harapan</h3>
+            <h3 className="text-xl font-bold mb-4">
+              GPdI Shekinah Graha Harapan
+            </h3>
             <p className="mb-4 text-blue-200">
               Melayani Tuhan dengan segenap hati, menjangkau jiwa-jiwa bagi
               Kristus.
@@ -71,59 +71,69 @@ export default function Footer() {
                 </span>
               </li> */}
               <li className="flex items-start">
+                <a
+                  href="tel:+6281314165742"
+                  className=" flex justify-center items-center gap-x-3 cursor-pointer rounded-full transition duration-300"
+                >
+                  <FontAwesomeIcon icon={faPhone} width={20} height={20} />
 
-               <a
-                href="tel:+6281314165742"
-                className=" flex justify-center items-center gap-x-3 cursor-pointer rounded-full transition duration-300"
-              >
-                <FontAwesomeIcon icon={faPhone} width={20} height={20} />
-
-                <h1 className="hover:">(+62) 813-1614-5742</h1>
-              </a>
+                  <h1 className="hover:">(+62) 813-1614-5742</h1>
+                </a>
               </li>
               <li className="flex items-start">
-               <a
-                href="https://web.facebook.com/GPdI.Shekinah.GrahaHarapan"
-                className=" flex justify-center items-center gap-x-3 cursor-pointer rounded-full transition duration-300"
-              >
-                <FontAwesomeIcon icon={faFacebook} width={20} height={20} />
+                <a
+                  href="https://web.facebook.com/GPdI.Shekinah.GrahaHarapan"
+                  className=" flex justify-center items-center gap-x-3 cursor-pointer rounded-full transition duration-300"
+                >
+                  <FontAwesomeIcon icon={faFacebook} width={20} height={20} />
 
-                <h1 className="hover:underline hover:underline-offset-4">GPdI Shekinah Graha Harapan</h1>
-              </a>
+                  <h1 className="hover:underline hover:underline-offset-4">
+                    GPdI Shekinah Graha Harapan
+                  </h1>
+                </a>
               </li>
               <li className="flex items-start">
-                 <a
-                href="https://www.instagram.com/gpdishekinahmustikajaya/"
-                className=" flex justify-center items-center gap-x-3 cursor-pointer rounded-full transition duration-300"
-              >
-                <FontAwesomeIcon icon={faInstagram} width={20} height={20} />
+                <a
+                  href="https://www.instagram.com/gpdishekinahmustikajaya/"
+                  className=" flex justify-center items-center gap-x-3 cursor-pointer rounded-full transition duration-300"
+                >
+                  <FontAwesomeIcon icon={faInstagram} width={20} height={20} />
 
-                <h1 className="hover:underline hover:underline-offset-4">@gpdishekinahmustikajaya</h1>
-              </a>
+                  <h1 className="hover:underline hover:underline-offset-4">
+                    @gpdishekinahmustikajaya
+                  </h1>
+                </a>
               </li>
               <li className="flex items-start">
-             <a
-                href="https://wa.me/6281316145742"
-                className=" flex justify-center items-center gap-x-3 cursor-pointer rounded-full transition duration-300"
-              >
-                <FontAwesomeIcon icon={faWhatsapp} width={20} height={20} />
+                <a
+                  href="https://wa.me/6281316145742"
+                  className=" flex justify-center items-center gap-x-3 cursor-pointer rounded-full transition duration-300"
+                >
+                  <FontAwesomeIcon icon={faWhatsapp} width={20} height={20} />
 
-                <h1 className="hover:underline hover:underline-offset-4">Hubungi Kami Di Whatsapp</h1>
-              </a>
+                  <h1 className="hover:underline hover:underline-offset-4">
+                    Hubungi Kami Di Whatsapp
+                  </h1>
+                </a>
               </li>
             </ul>
-            <div className="flex space-x-4 mt-4">
-        
-            </div>
+            <div className="flex space-x-4 mt-4"></div>
           </div>
-          <div >
-<h1 className=" text-center text-xl sm:text-3xl">Address</h1>
-          <iframe
-            src="https://storage.googleapis.com/maps-solutions-sgccwx2lfq/locator-plus/jflh/locator-plus.html"
-            width="100%"
-            height="100%"
-            loading="lazy"
-          ></iframe>
+          <div>
+            <h1 className=" text-center text-xl sm:text-3xl">Address</h1>
+            <iframe
+              src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3965.6983128379943!2d107.02354057488817!3d-6.303312261688578!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x2e6991e89717fbb5%3A0xbedeef8d6f425758!2sGPdI%20Shekinah%20GRAHA%20HARAPAN!5e0!3m2!1sid!2sid!4v1748864872601!5m2!1sid!2sid"
+              width="100%"
+              height="100%"
+              aria-label="Gereja GPdI"
+              loading="lazy"
+            ></iframe>
+            {/* <iframe
+              src="https://storage.googleapis.com/maps-solutions-sgccwx2lfq/locator-plus/jflh/locator-plus.html"
+              width="100%"
+              height="100%"
+              loading="lazy"
+            ></iframe> */}
           </div>
         </div>
         <div className="border-t border-blue-800 pt-6 text-center text-blue-300 text-sm">
