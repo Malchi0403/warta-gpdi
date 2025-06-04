@@ -1,34 +1,35 @@
-'use client'
-import React, { useState } from 'react'
+"use client";
+import React, { useState } from "react";
 import {
   MenuIcon,
   XIcon,
   HomeIcon,
   CalendarIcon,
   UserIcon,
-} from 'lucide-react'
-import Image from 'next/image'
+} from "lucide-react";
+import Image from "next/image";
 export default function Header() {
-  const [isMenuOpen, setIsMenuOpen] = useState(false)
+  const [isMenuOpen, setIsMenuOpen] = useState(false);
   return (
     <header className="bg-gradient-to-r from-blue-900 via-blue-800 to-blue-900 text-white relative shadow-lg">
-      <div suppressHydrationWarning className="container mx-auto px-4 py-4 flex justify-between items-center">
-        <div  className="flex items-center space-x-2">
-          <div className='relative w-11 aspect-[64/88]'>
-
-                <Image src={'/assets/logoGPdI.jpeg'} fill alt='GPdI' />
+      <div
+        suppressHydrationWarning
+        className="container mx-auto px-4 py-4 flex justify-between items-center"
+      >
+        <div className="flex items-center space-x-2">
+          <div className="relative w-11 aspect-[64/88]">
+            <Image src={"/assets/logoGPdI.jpeg"} fill alt="GPdI" />
           </div>
           {/* <BookOpenIcon className="h-8 w-8 text-yellow-400" /> */}
           <div>
-            <h1 className="text-xl font-bold">GPdI Shekinah Graha Harapan</h1>
-            <p className="text-xs md:text-sm text-yellow-200">
-              Warta Jemaat
-            </p>
+            <h1 className="text-lg sm:text-xl font-bold">GPdI Shekinah Graha Harapan</h1>
+            <p className="text-sm text-yellow-200">Warta Jemaat</p>
           </div>
         </div>
         <button
           className="md:hidden"
           onClick={() => setIsMenuOpen(!isMenuOpen)}
+          aria-label="Menu Icon"
         >
           {isMenuOpen ? <XIcon /> : <MenuIcon />}
         </button>
@@ -36,6 +37,7 @@ export default function Header() {
           <a
             href="#"
             className="flex items-center space-x-1 hover:text-yellow-200 transition duration-300"
+            aria-label="beranda"
           >
             <HomeIcon className="h-4 w-4" />
             <span>Beranda</span>
@@ -43,6 +45,8 @@ export default function Header() {
           <a
             href="#jadwal"
             className="flex items-center space-x-1 hover:text-yellow-200 transition duration-300"
+            aria-label="Jadwal"
+
           >
             <CalendarIcon className="h-4 w-4" />
             <span>Jadwal Ibadah</span>
@@ -50,6 +54,8 @@ export default function Header() {
           <a
             href="#pelayanan"
             className="flex items-center space-x-1 hover:text-yellow-200 transition duration-300"
+            aria-label="pelayanan"
+
           >
             <UserIcon className="h-4 w-4" />
             <span>Pelayanan</span>
@@ -82,5 +88,5 @@ export default function Header() {
         </nav>
       )}
     </header>
-  )
+  );
 }

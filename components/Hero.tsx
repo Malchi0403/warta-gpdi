@@ -9,7 +9,8 @@ export default function Hero() {
         src={"/assets/web.webp"}
         alt='background'
         fill
-        className='object-cover object-bottom'
+        className='sm:object-cover sm:object-bottom'
+        priority
         />
         
       </div>
