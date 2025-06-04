@@ -6,6 +6,7 @@ import {
 import { faPhone } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { ClockIcon } from "lucide-react";
+import Map from "./Maps";
 
 export default function Footer() {
   return (
@@ -77,7 +78,7 @@ export default function Footer() {
                 >
                   <FontAwesomeIcon icon={faPhone} width={20} height={20} />
 
-                  <h1 className="hover:">(+62) 813-1614-5742</h1>
+                  <h2 className="hover:">(+62) 813-1614-5742</h2>
                 </a>
               </li>
               <li className="flex items-start">
@@ -87,9 +88,9 @@ export default function Footer() {
                 >
                   <FontAwesomeIcon icon={faFacebook} width={20} height={20} />
 
-                  <h1 className="hover:underline hover:underline-offset-4">
+                  <h2 className="hover:underline hover:underline-offset-4">
                     GPdI Shekinah Graha Harapan
-                  </h1>
+                  </h2>
                 </a>
               </li>
               <li className="flex items-start">
@@ -99,9 +100,9 @@ export default function Footer() {
                 >
                   <FontAwesomeIcon icon={faInstagram} width={20} height={20} />
 
-                  <h1 className="hover:underline hover:underline-offset-4">
+                  <h2 className="hover:underline hover:underline-offset-4">
                     @gpdishekinahmustikajaya
-                  </h1>
+                  </h2>
                 </a>
               </li>
               <li className="flex items-start">
@@ -111,23 +112,17 @@ export default function Footer() {
                 >
                   <FontAwesomeIcon icon={faWhatsapp} width={20} height={20} />
 
-                  <h1 className="hover:underline hover:underline-offset-4">
+                  <h2 className="hover:underline hover:underline-offset-4">
                     Hubungi Kami Di Whatsapp
-                  </h1>
+                  </h2>
                 </a>
               </li>
             </ul>
             <div className="flex space-x-4 mt-4"></div>
           </div>
           <div>
-            <h1 className=" text-center text-xl sm:text-3xl">Address</h1>
-            <iframe
-              src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3965.6983128379943!2d107.02354057488817!3d-6.303312261688578!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x2e6991e89717fbb5%3A0xbedeef8d6f425758!2sGPdI%20Shekinah%20GRAHA%20HARAPAN!5e0!3m2!1sid!2sid!4v1748864872601!5m2!1sid!2sid"
-              width="100%"
-              height="100%"
-              aria-label="Gereja GPdI"
-              loading="lazy"
-            ></iframe>
+            <h2 className=" text-center text-xl sm:text-3xl">Address</h2>
+          <Map />
             {/* <iframe
               src="https://storage.googleapis.com/maps-solutions-sgccwx2lfq/locator-plus/jflh/locator-plus.html"
               width="100%"

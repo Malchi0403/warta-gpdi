@@ -8,7 +8,6 @@ const Activity = ({ dataVideo }: { dataVideo: VideoFacebook[] }) => {
       </h2>
       <div className="px-6  flex flex-col sm:flex-row sm:flex-wrap gap-6 justify-center">
         {dataVideo.map((video) => {
-          console.log(video.source, "ini video source");
           return (
             <div
               key={video.id}
@@ -25,9 +24,9 @@ const Activity = ({ dataVideo }: { dataVideo: VideoFacebook[] }) => {
                   <source src={video?.source} type="video/mp4" />
                 </video>
               </div>
-              <h1 className="mt-2 text-base font-semibold capitalize line-clamp-3 text-black">
+              <h3 className="mt-2 text-base font-semibold capitalize line-clamp-3 text-black">
                 {video.title}
-              </h1>
+              </h3>
               <p className="mt-2 text-sm line-clamp-3 text-black">
                 {video.description}
               </p>

@@ -1,4 +1,4 @@
-'use client'
+"use client";
 import {
   BookOpenCheckIcon,
   HandIcon,
@@ -8,43 +8,26 @@ import {
   MonitorIcon,
   Music2Icon,
   MusicIcon,
-  Wine
-} from 'lucide-react'
-import React, { cloneElement, useEffect, useMemo, useRef, useState } from 'react'
-import { useDispatch, useSelector } from 'react-redux'
-import { EventDetail, getTitle } from './WorshipSchedules'
-import { RootState } from '@/libs/store/store'
-import { setScrollTarget } from '@/libs/redux/scroll'
-// interface ServiceRole {
-//   title: string
-//   name: string | string[]
-//   icon: React.ReactNode
-// }
-// interface ScheduleEntry {
-//   date: string
-//   worshipLeader: string
-//   singers: string[]
-//   musicians: string[]
-//   welcomeTeam: string[]
-//   tambourine: string[]
-//   offerings: string[]
-//   intercession: string[]
-//   communion?: boolean
-//   preacher: string
-// }
+  Wine,
+} from "lucide-react";
+import React, { cloneElement, useEffect, useMemo, useRef } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { PetugasIbadah } from "./WorshipSchedules";
+import { RootState } from "@/libs/store/store";
+import { setScrollTarget } from "@/libs/redux/scroll";
+
 interface ServiceCardProps {
-  title: string
-  name: string | string[] | undefined
-  icon: React.ReactNode
+  title: string;
+  name: string | string[] | undefined;
+  icon: React.ReactNode;
 }
 
-
-const ServiceCard: React.FC<ServiceCardProps> = ({ title, name, icon }  ) => {
+const ServiceCard: React.FC<ServiceCardProps> = ({ title, name, icon }) => {
   return (
     <div className="bg-gradient-to-br from-white to-blue-50 rounded-lg p-6 shadow-md border border-blue-100 hover:shadow-xl transition duration-300 flex flex-col items-center text-center">
       <div className="bg-gradient-to-br from-blue-100 to-indigo-100 p-3 rounded-full mb-4">
         {cloneElement(icon as React.ReactElement<SVGSVGElement>, {
-          className: 'h-8 w-8 text-blue-700',
+          className: "h-8 w-8 text-blue-700",
         })}
       </div>
       <h3 className="font-bold text-lg mb-2 bg-clip-text text-transparent bg-gradient-to-r from-blue-800 to-indigo-800">
@@ -60,191 +43,90 @@ const ServiceCard: React.FC<ServiceCardProps> = ({ title, name, icon }  ) => {
         <p className="text-gray-600">{name}</p>
       )}
     </div>
-  )
-}
+  );
+};
 export default function MinistryRoster() {
-  const dataMinistry = useSelector((state :RootState) => state.ministry);
-  
+  const dataMinistry = useSelector((state: RootState) => state.ministry);
+
   const dataService = useMemo(() => {
-    if(dataMinistry.activeTab === 'umum') {
-      if(dataMinistry.ministry ) {
+  if (dataMinistry.activeTab !== "umum") return [];
 
-        if( (dataMinistry?.ministry as EventDetail).perjamuan?.length === 0) {
-          return (
-            [
-              {
-                title: 'Worship Leader',
-                name: dataMinistry?.ministry.wl,
-                icon: <MicIcon />,
-              },
-              {
-                title: 'Singer',
-                name: (dataMinistry?.ministry as EventDetail).singer,
-                icon: <Music2Icon />,
-              },
-              {
-                title: 'Tim Musik',
-                name: (dataMinistry?.ministry as EventDetail).music,
-                icon: <MusicIcon />,
-              },
-              {
-                title: 'Penerima Tamu',
-                name: (dataMinistry?.ministry as EventDetail).usher,
-                icon: <HeartIcon />,
-              },
-              {
-                title: 'Tim Tamborin',
-                name: (dataMinistry?.ministry as EventDetail).tamborin,
-                icon: <Music2Icon />,
-              },
-              {
-                title: 'Kolektan',
-                name: (dataMinistry?.ministry as EventDetail).kolekte,
-                icon: <HandIcon />,
-              },
-              {
-                title: 'Doa Syafaat',
-                name: (dataMinistry?.ministry as EventDetail).pendoaSyafaat,
-                icon: <Handshake />,
-              },
-              {
-                title: 'Multimedia',
-                name: (dataMinistry?.ministry as EventDetail).multimedia,
-                icon: <MonitorIcon />,
-              },
-              {
-                title: 'Pembaca Warta',
-                name: (dataMinistry?.ministry as EventDetail).pembacaWarta,
-                icon: <BookOpenCheckIcon />,
-              },
-            ]
-          )
-        } else {
-          return (
-            [
-              {
-                title: 'Worship Leader',
-                name: (dataMinistry?.ministry as EventDetail).wl,
-                icon: <MicIcon />,
-              },
-              {
-                title: 'Singer',
-                name: (dataMinistry?.ministry as EventDetail).singer,
-                icon: <Music2Icon />,
-              },
-              {
-                title: 'Tim Musik',
-                name: (dataMinistry?.ministry as EventDetail).music,
-                icon: <MusicIcon />,
-              },
-              {
-                title: 'Penerima Tamu',
-                name: (dataMinistry?.ministry as EventDetail).usher,
-                icon: <HeartIcon />,
-              },
-              {
-                title: 'Tim Tamborin',
-                name: (dataMinistry?.ministry as EventDetail).tamborin,
-                icon: <Music2Icon />,
-              },
-              {
-                title: 'Kolektan',
-                name: (dataMinistry?.ministry as EventDetail).kolekte,
-                icon: <HandIcon />,
-              },
-              {
-                title: 'Doa Syafaat',
-                name: (dataMinistry?.ministry as EventDetail).pendoaSyafaat,
-                icon: <Handshake />,
-              },
-              {
-                title: 'Multimedia',
-                name: (dataMinistry?.ministry as EventDetail).multimedia,
-                icon: <MonitorIcon />,
-              },
-              {
-                title: 'Pembaca Warta',
-                name: (dataMinistry?.ministry as EventDetail).pembacaWarta,
-                icon: <BookOpenCheckIcon />,
-              },
-              {
-                title: 'Perjamuan',
-                name: (dataMinistry?.ministry as EventDetail).perjamuan,
-                icon: <Wine />,
-              },
-            ]
-          )
-        }
-      }
-    } else if (dataMinistry.activeTab === 'pemuda') {
-      if(dataMinistry.ministry) {
-        return (
-          [
-            {
-              title: 'Worship Leader',
-              name: dataMinistry?.ministry.wl,
-              icon: <MicIcon />,
-            },
-            {
-              title: 'Singer',
-              name: (dataMinistry?.ministry as EventDetail).singer,
-              icon: <Music2Icon />,
-            },
-            {
-              title: 'Tim Musik',
-              name: dataMinistry?.ministry.music,
-              icon: <MusicIcon />,
-            },
+  const ministry = dataMinistry?.ministry as PetugasIbadah;
 
-            {
-              title: 'Kolektan',
-              name: (dataMinistry?.ministry as EventDetail).kolekte,
-              icon: <HandIcon />,
-            },
-          
-            {
-              title: 'Multimedia',
-              name: (dataMinistry?.ministry as EventDetail).multimedia,
-              icon: <MonitorIcon />,
-            },
-           
-          ]
-        )
-      }
-    } else {
-      if(dataMinistry.ministry) {
-        return (
-          [
-            {
-              title: 'Worship Leader',
-              name: dataMinistry?.ministry.wl,
-              icon: <MicIcon />,
-            },
-            {
-              title: 'Musik',
-              name: dataMinistry?.ministry.music,
-              icon: <MusicIcon />,
-            },           
-          ]
-        )
-      }
-    }
-  },[dataMinistry])
-  const [eventName, setEventName] = useState<string>('');
-  const [date, setDate] = useState<string>('');
+  const items = [
+    {
+      title: "Worship Leader",
+      name: ministry?.wl,
+      icon: <MicIcon />,
+    },
+    {
+      title: "Singer",
+      name: [ministry?.singer_1, ministry?.singer_2],
+      icon: <Music2Icon />,
+    },
+    {
+      title: "Tim Musik",
+      name: [ministry?.musik_1, ministry?.musik_2, ministry?.musik_3],
+      icon: <MusicIcon />,
+    },
+    {
+      title: "Penerima Tamu",
+      name: [ministry?.penerima_tamu_1, ministry?.penerima_tamu_2],
+      icon: <HeartIcon />,
+    },
+    {
+      title: "Tim Tamborin",
+      name: [ministry?.tamborine_1, ministry?.tamborine_2],
+      icon: <Music2Icon />,
+    },
+    {
+      title: "Kolektan",
+      name: [ministry?.kolektan_1, ministry?.kolektan_2],
+      icon: <HandIcon />,
+    },
+    {
+      title: "Doa Syafaat",
+      name: [ministry?.pendoa_syafaat_1, ministry?.pendoa_syafaat_2],
+      icon: <Handshake />,
+    },
+    {
+      title: "Multimedia",
+      name: [ministry?.multimedia_1, ministry?.multimedia_2],
+      icon: <MonitorIcon />,
+    },
+    {
+      title: "Pembaca Warta",
+      name: ministry?.pembaca_warta,
+      icon: <BookOpenCheckIcon />,
+    },
+  ];
+
+  if (ministry?.perjamuan_1) {
+    items.push({
+      title: "Perjamuan",
+      name: [
+        ministry.perjamuan_1 as string,
+        ministry.perjamuan_2 as string,
+        ministry.perjamuan_3 as string,
+        ministry.perjamuan_4 as string,
+      ],
+      icon: <Wine />,
+    });
+  }
+
+  return items;
+}, [dataMinistry]);
+
+  // const [date, setDate] = useState<string>('');
   const dispatch = useDispatch();
 
   const pelayananRef = useRef<HTMLDivElement | null>(null);
   const scrollTarget = useSelector((state: RootState) => state.scroll);
-  useEffect(() => {
-    if(dataMinistry.eventName) {
-      setEventName(dataMinistry.eventName)
-    }
-  if(dataMinistry.dateEvent) {
-    setDate(dataMinistry.dateEvent)
-  }
-    
-  }, [dataMinistry]);
+  // useEffect(() => {
+  // if(dataMinistry.dateEvent) {
+  //   setDate(dataMinistry.dateEvent)
+  // }
+  // }, [dataMinistry]);
   useEffect(() => {
     if (scrollTarget.target === "pelayanan") {
       setTimeout(() => {
@@ -258,16 +140,16 @@ export default function MinistryRoster() {
   }, [scrollTarget, dispatch]);
   return (
     <section
-    ref={pelayananRef}
+      ref={pelayananRef}
       id="pelayanan"
       className="py-12 md:py-16 bg-gradient-to-br from-gray-50 to-blue-50"
     >
       <div className="container mx-auto px-4">
         <h2 className="text-2xl md:text-3xl font-bold text-center mb-2 bg-clip-text text-transparent bg-gradient-to-r from-blue-800 to-indigo-800">
-          Pelayanan {getTitle(eventName)}
+          Pelayanan {dataMinistry.eventName}
         </h2>
         <p className="text-center text-gray-600 mb-8">
-          {date}
+          {dataMinistry.dateEvent}
           {/* {(dataMinistry?.ministry as EventDetail).perjamuan?.length !== 0 && dataMinistry.activeTab === 'umum' && (
             <span className="ml-2 inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-red-100 text-red-800">
               <CrossIcon className="w-4 h-4 mr-1" /> Minggu Perjamuan
@@ -284,54 +166,7 @@ export default function MinistryRoster() {
             />
           ))}
         </div>
-        {/* <div className="mt-12">
-          <h3 className="text-xl font-bold text-center mb-6">
-            Jadwal Pelayanan Mendatang
-          </h3>
-          <div className="overflow-x-auto">
-            <table className="min-w-full bg-white rounded-lg overflow-hidden shadow">
-              <thead className="bg-gradient-to-r from-blue-800 to-indigo-800 text-white">
-                <tr>
-                  <th className="py-3 px-4 text-left">Tanggal</th>
-                  <th className="py-3 px-4 text-left">Worship Leader</th>
-                  <th className="py-3 px-4 text-left">Singer</th>
-                  <th className="py-3 px-4 text-left">Tim Musik</th>
-                  <th className="py-3 px-4 text-left">Penerima Tamu</th>
-                  <th className="py-3 px-4 text-left">Tamborin</th>
-                  <th className="py-3 px-4 text-left">Kolektan</th>
-                  <th className="py-3 px-4 text-left">Doa Syafaat</th>
-                  <th className="py-3 px-4 text-left">Pengkhotbah</th>
-                </tr>
-              </thead>
-              <tbody className="divide-y divide-gray-200">
-                {futureSchedules.map((schedule, index) => (
-                  <tr key={index} className="hover:bg-gray-50">
-                    <td className="py-3 px-4">
-                      {schedule.date}
-                      {schedule.communion && (
-                        <span className="ml-2 inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-red-100 text-red-800">
-                          <CrossIcon className="w-3 h-3 mr-1" />
-                          Perjamuan
-                        </span>
-                      )}
-                    </td>
-                    <td className="py-3 px-4">{schedule.worshipLeader}</td>
-                    <td className="py-3 px-4">{schedule.singers.join(', ')}</td>
-                    <td className="py-3 px-4">{schedule.musicians}</td>
-                    <td className="py-3 px-4">
-                      {schedule.welcomeTeam.join(', ')}
-                    </td>
-                    <td className="py-3 px-4">{schedule.tambourine}</td>
-                    <td className="py-3 px-4">{schedule.offerings}</td>
-                    <td className="py-3 px-4">{schedule.intercession}</td>
-                    <td className="py-3 px-4">{schedule.preacher}</td>
-                  </tr>
-                ))}
-              </tbody>
-            </table>
-          </div>
-        </div> */}
       </div>
     </section>
-  )
+  );
 }

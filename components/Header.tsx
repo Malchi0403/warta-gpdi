@@ -14,7 +14,10 @@ export default function Header() {
     <header className="bg-gradient-to-r from-blue-900 via-blue-800 to-blue-900 text-white relative shadow-lg">
       <div suppressHydrationWarning className="container mx-auto px-4 py-4 flex justify-between items-center">
         <div  className="flex items-center space-x-2">
-                <Image src={'/assets/logoGPdI.jpeg'} width={30} height={30} className='w-9 h-9' alt='GPdI' />
+          <div className='relative w-11 aspect-[64/88]'>
+
+                <Image src={'/assets/logoGPdI.jpeg'} fill alt='GPdI' />
+          </div>
           {/* <BookOpenIcon className="h-8 w-8 text-yellow-400" /> */}
           <div>
             <h1 className="text-xl font-bold">GPdI Shekinah Graha Harapan</h1>

@@ -1,8 +1,8 @@
-import { EventDetail, Komsel } from "@/components/WorshipSchedules";
+import { EventDetail, Komsel, PetugasIbadah } from "@/components/WorshipSchedules";
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 
 interface Ministry {
-    ministry: EventDetail |Komsel |null;
+    ministry: EventDetail |Komsel | PetugasIbadah | null;
     activeTab?:string
     dateEvent?:string
     eventName?:string

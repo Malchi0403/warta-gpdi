@@ -13,6 +13,31 @@ interface ScheduleInterface {
   location: string;
   onClickCustom?: () => void;
 }
+export interface PetugasIbadah {
+  tanggal: string;
+  ibadah_raya: string;
+  wl: string;
+  singer_1: string;
+  singer_2: string;
+  musik_1: string;
+  musik_2: string;
+  musik_3: string;
+  kolektan_1: string;
+  kolektan_2: string;
+  tamborine_1: string;
+  tamborine_2: string;
+  multimedia_1: string;
+  multimedia_2: string;
+  pendoa_syafaat_1: string;
+  pendoa_syafaat_2: string;
+  penerima_tamu_1: string;
+  penerima_tamu_2: string;
+  pembaca_warta: string;
+  perjamuan_1?: string;
+  perjamuan_2?: string;
+  perjamuan_3?: string;
+  perjamuan_4?: string;
+}
 
 export interface Event {
   ID: number;
@@ -69,12 +94,12 @@ function ScheduleCard({
   return (
     <div
       onClick={onClickCustom}
-      className=" min-h-44 flex flex-col justify-between bg-gradient-to-br from-white to-blue-100 rounded-lg p-6 shadow-md border border-blue-200 hover:shadow-xl transition duration-300"
+      className=" min-h-44 flex flex-col cursor-pointer justify-between bg-gradient-to-br from-white to-blue-100 rounded-lg p-6 shadow-md border border-blue-200 hover:shadow-xl transition duration-300"
     >
       <div className="flex justify-between   items-start mb-4">
         <div>
           <h3 className="font-bold text-lg bg-clip-text text-transparent bg-gradient-to-r from-blue-800 to-indigo-800">
-            {getTitle(title)}
+            {title}
           </h3>
           <p className="text-gray-600">{date}</p>
         </div>
@@ -141,7 +166,7 @@ const bulanMap: { [key in Bulan]: string } = {
   desember: "December",
 };
 
-export default function WorshipSchedules({ data }: { data: Event[] }) {
+export default function WorshipSchedules({ data, ibadahData }: { data: Event[], ibadahData:PetugasIbadah[] }) {
   const dataMinistry = useSelector((state: RootState) => state.ministry);
   const dispatch = useDispatch();
   // const today = new Date()
@@ -170,32 +195,26 @@ export default function WorshipSchedules({ data }: { data: Event[] }) {
     });
 
   useEffect(() => {
-    if (data) {
+    if ( ibadahData) {
       dispatch(
         setMinistry({
           activeTab: "umum",
-          ministry: data.filter(
+          ministry: ibadahData.filter(
             (a) =>
-              ["ibadahPagi", "ibadahSiang", "ibadahSore"].includes(
-                a?.eventName
-              ) && formatDate(a?.dateEvent).setHours(23, 59, 59, 999) >= today
-          )[0]?.event,
-          dateEvent: data.filter(
+               formatDate(a?.tanggal).setHours(23, 59, 59, 999) >= today
+          )[0],
+          dateEvent: ibadahData.filter(
             (a) =>
-              ["ibadahPagi", "ibadahSiang", "ibadahSore"].includes(
-                a?.eventName
-              ) && formatDate(a?.dateEvent).setHours(23, 59, 59, 999) >= today
-          )[0]?.dateEvent,
-          eventName: data.filter(
+               formatDate(a?.tanggal).setHours(23, 59, 59, 999) >= today
+          )[0].tanggal,
+          eventName: ibadahData.filter(
             (a) =>
-              ["ibadahPagi", "ibadahSiang", "ibadahSore"].includes(
-                a?.eventName
-              ) && formatDate(a?.dateEvent).setHours(23, 59, 59, 999) >= today
-          )[0]?.eventName,
+               formatDate(a?.tanggal).setHours(23, 59, 59, 999) >= today
+          )[0].ibadah_raya,
         })
       );
     }
-  }, [data]);
+  }, [ibadahData]);
   const tabStyle = (isActive: boolean) =>
     `flex items-center px-4 py-2 rounded-md mx-1 mb-2 cursor-pointer z-20 transition duration-300 ${
       isActive
@@ -303,25 +322,17 @@ export default function WorshipSchedules({ data }: { data: Event[] }) {
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
           {dataMinistry.activeTab === "umum" && (
             <>
-              {data
-                .filter(
-                  (a) =>
-                    ["ibadahPagi", "ibadahSiang", "ibadahSore"].includes(
-                      a.eventName
-                    ) &&
-                    formatDate(a.dateEvent).setHours(23, 59, 59, 999) >= today
-                )
-                .map((e, i) => (
+              {ibadahData.map((e, i) => (
                   <ScheduleCard
                     key={i}
-                    title={e.eventName}
-                    date={e.dateEvent}
+                    title={e.ibadah_raya}
+                    date={e.tanggal}
                     time={
-                      e.eventName === "ibadahPagi"
+                      e.ibadah_raya === "Ibadah I"
                         ? "06:00 WIB"
-                        : e.eventName === "ibadahSiang"
+                        : e.ibadah_raya === "Ibadah II"
                         ? "10:00 WIB"
-                        : e.eventName === "ibadahSore"
+                        : e.ibadah_raya === "Ibadah III"
                         ? "17:00 WIB"
                         : ""
                     }
@@ -331,9 +342,9 @@ export default function WorshipSchedules({ data }: { data: Event[] }) {
                       dispatch(
                         setMinistry({
                           activeTab: "umum",
-                          ministry: e.event,
-                          dateEvent: e.dateEvent,
-                          eventName: e.eventName,
+                          dateEvent: e.tanggal,
+                          ministry:e,
+                          eventName: e.ibadah_raya,
                         })
                       );
                       dispatch(setScrollTarget("pelayanan"));

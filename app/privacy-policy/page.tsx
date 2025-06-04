@@ -3,7 +3,7 @@ import React from 'react';
 export default function PrivacyPolicyPage() {
   return (
     <main className="max-w-2xl mx-auto p-6">
-      <h1 className="text-2xl font-bold mb-4">Kebijakan Privasi</h1>
+      <h2 className="text-2xl font-bold mb-4">Kebijakan Privasi</h2>
       <p className="mb-4">
         Aplikasi ini tidak mengumpulkan informasi pribadi dari pengguna.
         Kami hanya mengambil data video publik dari halaman Facebook yang dikelola oleh pemilik aplikasi.

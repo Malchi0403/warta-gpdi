@@ -23,7 +23,20 @@ export interface VideoFacebook  {
 
 async function getFbVideos(): Promise<VideoFacebook[]> {
   const res = await fetch('http://gpdishekinah.online/api', {
-    // wajib cache: 'no-store' agar selalu fresh (SSR)
+    cache: 'no-store',
+  });
+
+  if (!res.ok) {
+    return [];
+  }
+
+  const json = await res.json();
+  return json.data || [];
+}
+
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+async function getIbadahUmum(): Promise<any> {
+  const res = await fetch('http://gpdishekinah.online/spreadsheet', {
     cache: 'no-store',
   });
 
@@ -44,14 +57,14 @@ async function App() {
     throw new Error('Failed to fetch data')
   }
 const video = await getFbVideos()
-// console.log(video,'ini video')
+const data = await getIbadahUmum()
   const posts = await res.json()
   return (
     <div suppressHydrationWarning className="flex flex-col min-h-screen bg-gray-50">
       <Header />
       <main className="flex-grow">
         <Hero />
-        <WorshipSchedules data={posts.data}/>
+        <WorshipSchedules data={posts.data} ibadahData={data}/>
         <MinistryRoster />
         <Activity dataVideo={video} />
       </main>
