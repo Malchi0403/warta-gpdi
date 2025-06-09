@@ -1,5 +1,5 @@
-import { EventDetail, Komsel, PetugasIbadah } from "@/components/WorshipSchedules";
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
+import { EventDetail, Komsel, PetugasIbadah } from "../api";
 
 interface Ministry {
     ministry: EventDetail |Komsel | PetugasIbadah | null;

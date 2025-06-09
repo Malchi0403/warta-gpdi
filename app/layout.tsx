@@ -16,7 +16,7 @@ config.autoAddCss = false;
 
 // ✅ Metadata untuk <head>
 export const metadata: Metadata = {
-  title: "GPdI Shekinah GRAHA HARAPAN",
+  title: "GPdI Shekinah Graha Harapan",
   description: "Selamat datang di Warta Jemaat GPdI Shekinah GRAHA HARAPAN",
   keywords: [
     "GPdI Shekinah",
@@ -40,7 +40,7 @@ export const metadata: Metadata = {
     "GPdI",
   ],
   openGraph: {
-    title: "GPdI Shekinah GRAHA HARAPAN",
+    title: "GPdI Shekinah Graha Harapan",
     description: "Selamat datang Warta Jemaat GPdI Shekinah Graha Harapan , Mustika Jaya .",
     url: "https://gpdishekinah.online",
     type: "website",
@@ -50,7 +50,7 @@ export const metadata: Metadata = {
         url: "https://gpdishekinah.online/assets/logoGPdI.jpeg",
         width: 1200,
         height: 630,
-        alt: "GPdI Shekinah - Graha harapan",
+        alt: "GPdI Shekinah Graha harapan",
       },
     ],
   },
@@ -65,7 +65,7 @@ export default function RootLayout({
   const jsonLd = {
     "@context": "https://schema.org",
     "@type": "Gereja",
-    "name": "GPdI Shekinah",
+    "name": "GPdI Shekinah Graha Harapan",
     "address": {
       "@type": "PostalAddress",
       "streetAddress": "Graha Harapan Blok E 13 No 2, Mustika Jaya",
@@ -94,7 +94,6 @@ export default function RootLayout({
       >
         <ReduxProvider>{children}</ReduxProvider>
 
-        {/* ✅ JSON-LD di dalam <body>, valid & dikenali Google */}
         <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}

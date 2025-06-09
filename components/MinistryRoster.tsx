@@ -12,9 +12,10 @@ import {
 } from "lucide-react";
 import React, { cloneElement, useEffect, useMemo, useRef } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { PetugasIbadah } from "./WorshipSchedules";
 import { RootState } from "@/libs/store/store";
 import { setScrollTarget } from "@/libs/redux/scroll";
+import { PetugasIbadah } from "@/libs/api";
+import { useAppSelector } from "@/libs/redux/hooks";
 
 interface ServiceCardProps {
   title: string;
@@ -47,7 +48,9 @@ const ServiceCard: React.FC<ServiceCardProps> = ({ title, name, icon }) => {
 };
 export default function MinistryRoster() {
   const dataMinistry = useSelector((state: RootState) => state.ministry);
-
+const {  tabsActive } = useAppSelector(
+    (state) => state.event
+  );
   const dataService = useMemo(() => {
   if (dataMinistry.activeTab !== "umum") return [];
 
@@ -117,16 +120,11 @@ export default function MinistryRoster() {
   return items;
 }, [dataMinistry]);
 
-  // const [date, setDate] = useState<string>('');
   const dispatch = useDispatch();
 
   const pelayananRef = useRef<HTMLDivElement | null>(null);
   const scrollTarget = useSelector((state: RootState) => state.scroll);
-  // useEffect(() => {
-  // if(dataMinistry.dateEvent) {
-  //   setDate(dataMinistry.dateEvent)
-  // }
-  // }, [dataMinistry]);
+
   useEffect(() => {
     if (scrollTarget.target === "pelayanan") {
       setTimeout(() => {
@@ -138,35 +136,40 @@ export default function MinistryRoster() {
       dispatch(setScrollTarget(null));
     }
   }, [scrollTarget, dispatch]);
-  return (
-    <section
-      ref={pelayananRef}
-      id="pelayanan"
-      className="py-12 md:py-16 bg-gradient-to-br from-gray-50 to-blue-50"
-    >
-      <div className="container mx-auto px-4">
-        <h2 className="text-2xl md:text-3xl font-bold text-center mb-2 bg-clip-text text-transparent bg-gradient-to-r from-blue-800 to-indigo-800">
-          Pelayanan {dataMinistry.eventName}
-        </h2>
-        <p className="text-center text-gray-600 mb-8">
-          {dataMinistry.dateEvent}
-          {/* {(dataMinistry?.ministry as EventDetail).perjamuan?.length !== 0 && dataMinistry.activeTab === 'umum' && (
-            <span className="ml-2 inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-red-100 text-red-800">
-              <CrossIcon className="w-4 h-4 mr-1" /> Minggu Perjamuan
-            </span>
-          )} */}
-        </p>
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-          {dataService?.map((service, index) => (
-            <ServiceCard
-              key={index}
-              title={service.title}
-              name={service?.name}
-              icon={service.icon}
-            />
-          ))}
-        </div>
-      </div>
-    </section>
-  );
+ if(tabsActive === "Ibadah-Raya") {
+   return (
+     <section
+       ref={pelayananRef}
+       id="pelayanan"
+       className="py-12 md:py-16 bg-gradient-to-br from-gray-50 to-blue-50"
+     >
+       <div className="container mx-auto px-4">
+         <h2 className="text-2xl md:text-3xl font-bold text-center mb-2 bg-clip-text text-transparent bg-gradient-to-r from-blue-800 to-indigo-800">
+           Pelayanan {dataMinistry.eventName}
+         </h2>
+         <p className="text-center text-gray-600 mb-8">
+           {dataMinistry.dateEvent}
+           {/* {(dataMinistry?.ministry as EventDetail).perjamuan?.length !== 0 && dataMinistry.activeTab === 'umum' && (
+             <span className="ml-2 inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-red-100 text-red-800">
+               <CrossIcon className="w-4 h-4 mr-1" /> Minggu Perjamuan
+             </span>
+           )} */}
+         </p>
+         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+           {dataService?.map((service, index) => (
+             <ServiceCard
+               key={index}
+               title={service.title}
+               name={service?.name}
+               icon={service.icon}
+             />
+           ))}
+         </div>
+       </div>
+     </section>
+   );
+
+ } else {
+   return null;
+ }
 }

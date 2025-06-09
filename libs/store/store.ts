@@ -2,15 +2,17 @@ import { configureStore, combineReducers } from "@reduxjs/toolkit";
 import { persistStore, persistReducer } from "redux-persist";
 import storage from "redux-persist/lib/storage"; // localStorage
 import ministryReducer from '@/libs/redux/ministryroster'
+import eventReducer from '@/libs/redux/ministry'
 import scrollReducer from '@/libs/redux/scroll'
 const persistConfig = {
   key: "root",
   storage,
-  whitelist: ["ministry"], // Hanya menyimpan state `user`
+  whitelist: ["ministry","event"], 
 };
 
 const rootReducer = combineReducers({
   ministry: ministryReducer,
+  event:eventReducer,
   scroll: scrollReducer
 });
 
@@ -21,7 +23,14 @@ export const store = configureStore({
   middleware: (getDefaultMiddleware) =>
     getDefaultMiddleware({
       serializableCheck: {
-        ignoredActions: ["persist/PERSIST", "persist/REGISTER"], // Mengabaikan error serializable
+         ignoredActions: [
+          "persist/PERSIST",
+          "persist/REHYDRATE",
+          "persist/REGISTER",
+          "persist/FLUSH",
+          "persist/PAUSE",
+          "persist/PURGE",
+        ],
       },
     }),
 });
