@@ -41,12 +41,12 @@ export const metadata: Metadata = {
 
 
 async function getIbadahUmum(): Promise<any> {
-  // const res = await fetch('http://gpdishekinah.online/ibadahraya', {
-  //   cache: 'no-store',
-  // });
-  const res = await fetch('http://localhost:3000/ibadahraya', {
+  const res = await fetch('http://gpdishekinah.online/ibadahraya', {
     cache: 'no-store',
   });
+  // const res = await fetch('http://localhost:3000/ibadahraya', {
+  //   cache: 'no-store',
+  // });
 
   if (!res.ok) {
     return [];
