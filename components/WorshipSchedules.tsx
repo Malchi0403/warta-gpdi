@@ -246,7 +246,7 @@ export default function WorshipSchedules({
       testPatch(setFirstLoad({data:ibadahData}));
       
     }
-  }, [ibadahData,dispatch,today,testPatch]);
+  }, [ibadahData]);
   const tabStyle = (isActive: boolean) =>
     `flex items-center px-4 py-2 rounded-md mx-1 mb-2 cursor-pointer z-20 transition duration-300 ${
       isActive

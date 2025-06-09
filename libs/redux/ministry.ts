@@ -34,7 +34,7 @@ export const fetchMinistry = createAsyncThunk(
   "event/fetchMinistry",
   async (tab: string) => {
     const res = await fetch(
-      `/komsel?tab=${tab === "Ibadah-Raya" ? `Ibadah Raya` : tab}`
+      `https://gpdishekinah.online/komsel?tab=${tab === "Ibadah-Raya" ? `Ibadah Raya` : tab}`
     );
     if (!res.ok) throw new Error("Gagal fetch data");
     const result = await res.json(); // result.rows atau lainnya
