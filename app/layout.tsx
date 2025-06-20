@@ -9,12 +9,11 @@ const geistSans = Geist({
   subsets: ["latin"],
 });
 
-// Font Awesome config
 import { config } from "@fortawesome/fontawesome-svg-core";
 import "@fortawesome/fontawesome-svg-core/styles.css";
+import SchemaMarkup from "@/components/SchemeMarkup";
 config.autoAddCss = false;
 
-// ✅ Metadata untuk <head>
 export const metadata: Metadata = {
   title: "GPdI Shekinah Graha Harapan",
   description: "Selamat datang di Warta Jemaat GPdI Shekinah GRAHA HARAPAN",
@@ -26,6 +25,8 @@ export const metadata: Metadata = {
     "mustika jaya",
     "gereja mustika jaya",
     "gereja graha harapan",
+    "gpdi shekinah graha harapan",
+    "gpdi shekinah",
     "gereja terdekat",
     "ibadah minggu",
     "praise and worship",
@@ -41,10 +42,10 @@ export const metadata: Metadata = {
   ],
   openGraph: {
     title: "GPdI Shekinah Graha Harapan",
-    description: "Selamat datang Warta Jemaat GPdI Shekinah Graha Harapan , Mustika Jaya .",
+    description:
+      "Selamat datang Warta Jemaat GPdI Shekinah Graha Harapan , Mustika Jaya .",
     url: "https://gpdishekinah.online",
     type: "website",
-    // Uncomment kalau ada image:
     images: [
       {
         url: "https://gpdishekinah.online/assets/logoGPdI.jpeg",
@@ -54,6 +55,9 @@ export const metadata: Metadata = {
       },
     ],
   },
+  alternates: {
+    canonical: "https://alifjayaservice.com",
+  },
 };
 
 export default function RootLayout({
@@ -61,30 +65,7 @@ export default function RootLayout({
 }: {
   children: React.ReactNode;
 }) {
-  // ✅ JSON-LD schema.org
-  const jsonLd = {
-    "@context": "https://schema.org",
-    "@type": "Gereja",
-    "name": "GPdI Shekinah Graha Harapan",
-    "address": {
-      "@type": "PostalAddress",
-      "streetAddress": "Graha Harapan Blok E 13 No 2, Mustika Jaya",
-      "addressLocality": "Kota Bekasi",
-      "addressRegion": "Jawa Barat",
-      "postalCode": "17158",
-      "addressCountry": "ID",
-    },
-    "telephone": "+62 813-1614-5742",
-    "url": "https://www.gpdishekinah.online",
-    "openingHours": "Mo-Su 00:00-23:59",
-    "description":
-      "GPdI Shekinah adalah gereja yang berlokasi di Mustika jaya, dengan ibadah setiap hari Minggu dan di hari lain ada beberapa kegiatan gereja.",
-    "geo": {
-      "@type": "GeoCoordinates",
-      "latitude": "-6.303093633833016",
-      "longitude": "107.02616911398482", // ✅ TANPA SPASI
-    },
-  };
+  
 
   return (
     <html lang="id">
@@ -94,11 +75,7 @@ export default function RootLayout({
       >
         <ReduxProvider>{children}</ReduxProvider>
 
-        <script
-          type="application/ld+json"
-          dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
-        />
-
+        <SchemaMarkup />
         <Analytics />
       </body>
     </html>

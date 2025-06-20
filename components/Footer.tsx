@@ -122,7 +122,7 @@ export default function Footer() {
           </div>
           <div>
             <h2 className=" text-center text-xl sm:text-3xl">Address</h2>
-          <Map />
+            <Map />
             {/* <iframe
               src="https://storage.googleapis.com/maps-solutions-sgccwx2lfq/locator-plus/jflh/locator-plus.html"
               width="100%"
