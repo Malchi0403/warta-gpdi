@@ -10,7 +10,7 @@ export async function GET(request: NextRequest) {
     const response = await fetch(url);
     const text = await response.text();
     const json = JSON.parse(text.substring(47).slice(0, -2));
-
+    console.log(response,"ini response")
     const cols = json.table.cols;
     const rows = json.table.rows;
     if (tab === "Komsel") {

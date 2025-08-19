@@ -200,12 +200,12 @@ export default function WorshipSchedules({
   // const dataMinistry = useSelector((state: RootState) => state.ministry);
   const dispatch = useDispatch();
   const testPatch = useAppDispatch();
-  const { datas, tabsActive, fetchedTabs, lastUpdated,loading } = useAppSelector(
+  const { datas, tabsActive, fetchedTabs, lastUpdated } = useAppSelector(
     (state) => state.event
   );
   const today = new Date().getTime();
   function formatDate(str: string): Date {
-    const [tanggal, bulan, tahun] = str.toLowerCase().split(" ") as [
+    const [tanggal, bulan, tahun] = String(str).toLowerCase().split(" ") as [
       string,
       Bulan,
       string
@@ -213,33 +213,36 @@ export default function WorshipSchedules({
     const bulanInggris = bulanMap[bulan];
     return new Date(`${tanggal} ${bulanInggris} ${tahun}`);
   }
-  console.log(loading,Date.now())
-  // const komselData = data
-  //   .map((a) => a.komsel || [])
-  //   .flat()
-  //   .filter((komsel) => {
-  //     const komselDate = formatDate(komsel.dateKomsel);
-  //     return komselDate.setHours(23, 59, 59, 999) >= today;
-  //   })
-  //   .sort((a, b) => {
-  //     const firstDate = formatDate(a.dateKomsel);
-  //     const secondDate = formatDate(b.dateKomsel);
-  //     return firstDate.getTime() - secondDate.getTime();
-  //   });
+  
 
   useEffect(() => {
     if (ibadahData) {
       dispatch(
         setMinistry({
           activeTab: "umum",
-          ministry: ibadahData.filter(
-            (a) => formatDate(a?.tanggal).setHours(23, 59, 59, 999) >= today
+          ministry: ibadahData?.filter(
+            (a) => {
+              if(a) {
+                
+                return formatDate(a?.tanggal).setHours(23, 59, 59, 999) >= today
+              }
+            }
           )[0],
-          dateEvent: ibadahData.filter(
-            (a) => formatDate(a?.tanggal).setHours(23, 59, 59, 999) >= today
+          dateEvent: ibadahData?.filter(
+            (a) => {
+              if(a) {
+                
+                return formatDate(a?.tanggal).setHours(23, 59, 59, 999) >= today
+              }
+            }
           )[0].tanggal,
-          eventName: ibadahData.filter(
-            (a) => formatDate(a?.tanggal).setHours(23, 59, 59, 999) >= today
+          eventName: ibadahData?.filter(
+            (a) => {
+              if(a) {
+                
+                return formatDate(a?.tanggal).setHours(23, 59, 59, 999) >= today
+              }
+            }
           )[0].ibadah_raya,
         })
       );
@@ -267,10 +270,14 @@ export default function WorshipSchedules({
 
     if (!hasFetched || !last || now - last > sixHours) {
       testPatch(fetchMinistry(tabsActive));
-      console.log('ini jalan ', lastUpdated);
       
     }
   }, [tabsActive, testPatch,fetchedTabs,lastUpdated]);
+  const getData = (key: "pemuda" | "komsel" | "sekolah minggu" | "ibadah wanita" | "ibadah pria" | "doa jumat") =>
+  datas[key]?.data?.filter(
+    a => formatDate(a.tanggal).setHours(23, 59, 59, 999) >= today
+  ) ?? [];
+  
   return (
     <section
       id="jadwal"
@@ -284,144 +291,87 @@ export default function WorshipSchedules({
           <button
             className={tabStyle(tabsActive === "Ibadah-Raya")}
             onClick={() => {
-        //       dispatch(
-        //         setMinistry({
-        //   activeTab: "umum",
-        //   ministry: ibadahData.filter(
-        //     (a) => formatDate(a?.tanggal).setHours(23, 59, 59, 999) >= today
-        //   )[0],
-        //   dateEvent: ibadahData.filter(
-        //     (a) => formatDate(a?.tanggal).setHours(23, 59, 59, 999) >= today
-        //   )[0].tanggal,
-        //   eventName: ibadahData.filter(
-        //     (a) => formatDate(a?.tanggal).setHours(23, 59, 59, 999) >= today
-        //   )[0].ibadah_raya,
-        // })
-        //       );
               handleTabClick("Ibadah-Raya");
             }}
           >
             <CalendarIcon className="h-4 w-4 mr-2" />
             Ibadah Umum
           </button>
-
+            {getData("pemuda")?.length > 0 && (
           <button
             className={tabStyle(tabsActive === "Pemuda")}
             onClick={() =>
-              // dispatch(
-              //   setMinistry({
-              //     activeTab: "pemuda",
-              //     ministry: data.filter(
-              //       (a) =>
-              //         a.eventName === "pemuda" &&
-              //         formatDate(a.dateEvent).setHours(23, 59, 59, 999) >=
-              //           today
-              //     )[0].event,
-              //     dateEvent: data.filter(
-              //       (a) =>
-              //         a.eventName === "pemuda" &&
-              //         formatDate(a.dateEvent).setHours(23, 59, 59, 999) >=
-              //           today
-              //     )[0].dateEvent,
-              //     eventName: data.filter(
-              //       (a) =>
-              //         a.eventName === "pemuda" &&
-              //         formatDate(a.dateEvent).setHours(23, 59, 59, 999) >=
-              //           today
-              //     )[0].eventName,
-              //   })
-              // )
               handleTabClick("Pemuda")
             }
           >
             <UsersIcon className="h-4 w-4 mr-2" />
             Ibadah Pemuda
           </button>
+
+            )}
+              {getData("doa jumat")?.length > 0 && (
           <button
             className={tabStyle(tabsActive === "Doa Jumat")}
             onClick={() => {
-              // dispatch(
-              //   setMinistry({
-              //     activeTab: "keluarga",
-              //     ministry: komselData[0],
-              //     dateEvent: komselData[0].dateKomsel,
-              //     eventName: komselData[0].name,
-              //   })
-              // );
               handleTabClick("Doa Jumat");
             }}
           >
             <HomeIcon className="h-4 w-4 mr-2" />
             Doa Jumat
           </button>
+                
+              )}
+              {getData("sekolah minggu")?.length > 0 && (
           <button
             className={tabStyle(tabsActive === "Sekolah Minggu")}
             onClick={() => {
-              // dispatch(
-              //   setMinistry({
-              //     activeTab: "keluarga",
-              //     ministry: komselData[0],
-              //     dateEvent: komselData[0].dateKomsel,
-              //     eventName: komselData[0].name,
-              //   })
-              // );
+         
               handleTabClick("Sekolah Minggu");
             }}
           >
             <HomeIcon className="h-4 w-4 mr-2" />
             Sekolah Minggu
           </button>
+
+              )}
+              {getData("ibadah pria")?.length > 0 && (
+
           <button
             className={tabStyle(tabsActive === "Ibadah Pria")}
             onClick={() => {
-              // dispatch(
-              //   setMinistry({
-              //     activeTab: "keluarga",
-              //     ministry: komselData[0],
-              //     dateEvent: komselData[0].dateKomsel,
-              //     eventName: komselData[0].name,
-              //   })
-              // );
               handleTabClick("Ibadah Pria");
             }}
           >
             <HomeIcon className="h-4 w-4 mr-2" />
             Ibadah Pria
           </button>
+              )}
+              {getData("ibadah wanita")?.length > 0 && (
+
           <button
             className={tabStyle(tabsActive === "Ibadah Wanita")}
             onClick={() => {
-              // dispatch(
-              //   setMinistry({
-              //     activeTab: "keluarga",
-              //     ministry: komselData[0],
-              //     dateEvent: komselData[0].dateKomsel,
-              //     eventName: komselData[0].name,
-              //   })
-              // );
               handleTabClick("Ibadah Wanita");
             }}
           >
             <HomeIcon className="h-4 w-4 mr-2" />
             Ibadah Wanita
           </button>
+              )}
+
+              {getData("komsel")?.length > 0 && (
+
           <button
             className={tabStyle(tabsActive === "Komsel")}
             onClick={() => {
-              // dispatch(
-              //   setMinistry({
-              //     activeTab: "keluarga",
-              //     ministry: komselData[0],
-              //     dateEvent: komselData[0].dateKomsel,
-              //     eventName: komselData[0].name,
-              //   })
-              // );
               handleTabClick("Komsel");
             }}
           >
             <HomeIcon className="h-4 w-4 mr-2" />
             Ibadah Komsel
           </button>
+              )}
+
         </div>
         <div
           className={`grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 ${
@@ -488,16 +438,6 @@ export default function WorshipSchedules({
                         ? "GPdI Shekinah Graha Harapan"
                         : `Rumah ${e.tempat}`
                     }
-                    onClickCustom={() => {
-                      // dispatch(
-                      //   setMinistry({
-                      //     activeTab: "pemuda",
-                      //     ministry: e.event,
-                      //     dateEvent: e.dateEvent,
-                      //     eventName: e.eventName,
-                      //   })
-                      // );
-                    }}
                   />
                 ))}
             </>
