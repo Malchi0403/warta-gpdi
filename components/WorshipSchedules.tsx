@@ -273,10 +273,7 @@ export default function WorshipSchedules({
       
     }
   }, [tabsActive, testPatch,fetchedTabs,lastUpdated]);
-  const getData = (key: "pemuda" | "komsel" | "sekolah minggu" | "ibadah wanita" | "ibadah pria" | "doa jumat") =>
-  datas[key]?.data?.filter(
-    a => formatDate(a.tanggal).setHours(23, 59, 59, 999) >= today
-  ) ?? [];
+  
   
   return (
     <section
@@ -297,7 +294,7 @@ export default function WorshipSchedules({
             <CalendarIcon className="h-4 w-4 mr-2" />
             Ibadah Umum
           </button>
-            {getData("pemuda")?.length > 0 && (
+
           <button
             className={tabStyle(tabsActive === "Pemuda")}
             onClick={() =>
@@ -308,8 +305,6 @@ export default function WorshipSchedules({
             Ibadah Pemuda
           </button>
 
-            )}
-              {getData("doa jumat")?.length > 0 && (
           <button
             className={tabStyle(tabsActive === "Doa Jumat")}
             onClick={() => {
@@ -319,9 +314,7 @@ export default function WorshipSchedules({
             <HomeIcon className="h-4 w-4 mr-2" />
             Doa Jumat
           </button>
-                
-              )}
-              {getData("sekolah minggu")?.length > 0 && (
+
           <button
             className={tabStyle(tabsActive === "Sekolah Minggu")}
             onClick={() => {
@@ -332,10 +325,6 @@ export default function WorshipSchedules({
             <HomeIcon className="h-4 w-4 mr-2" />
             Sekolah Minggu
           </button>
-
-              )}
-              {getData("ibadah pria")?.length > 0 && (
-
           <button
             className={tabStyle(tabsActive === "Ibadah Pria")}
             onClick={() => {
@@ -345,9 +334,6 @@ export default function WorshipSchedules({
             <HomeIcon className="h-4 w-4 mr-2" />
             Ibadah Pria
           </button>
-              )}
-              {getData("ibadah wanita")?.length > 0 && (
-
           <button
             className={tabStyle(tabsActive === "Ibadah Wanita")}
             onClick={() => {
@@ -357,10 +343,6 @@ export default function WorshipSchedules({
             <HomeIcon className="h-4 w-4 mr-2" />
             Ibadah Wanita
           </button>
-              )}
-
-              {getData("komsel")?.length > 0 && (
-
           <button
             className={tabStyle(tabsActive === "Komsel")}
             onClick={() => {
@@ -370,7 +352,6 @@ export default function WorshipSchedules({
             <HomeIcon className="h-4 w-4 mr-2" />
             Ibadah Komsel
           </button>
-              )}
 
         </div>
         <div
@@ -424,8 +405,7 @@ export default function WorshipSchedules({
                 ?.filter(
                   (a) =>
                     formatDate(a.tanggal).setHours(23, 59, 59, 999) >= today
-                )
-                .map((e, i) => (
+                ).map((e, i) => (
                   <ScheduleCard
                     key={i}
                     title={e.wl}
@@ -568,12 +548,10 @@ export default function WorshipSchedules({
           )}
           {tabsActive === "Doa Jumat" && (
             <>
-              {datas["doa jumat"]?.data
-                .filter(
+              {datas["doa jumat"]?.data?.filter(
                   (a) =>
                     formatDate(a.tanggal).setHours(23, 59, 59, 999) >= today
-                )
-                .map((e, i) => (
+                ).map((e, i) => (
                   <ScheduleCard
                     key={i}
                     title={e.pendoa}
