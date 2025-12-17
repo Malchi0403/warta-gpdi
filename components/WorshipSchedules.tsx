@@ -205,7 +205,7 @@ export default function WorshipSchedules({
   );
   const today = new Date().getTime();
   function formatDate(str: string): Date {
-    const [tanggal, bulan, tahun] = String(str).toLowerCase().split(" ") as [
+    const [tanggal, bulan,tahun ] = String(str).toLowerCase().split(" ") as [
       string,
       Bulan,
       string
@@ -214,7 +214,6 @@ export default function WorshipSchedules({
     return new Date(`${tanggal} ${bulanInggris} ${tahun}`);
   }
   
-
   useEffect(() => {
     if (ibadahData) {
       dispatch(
@@ -223,7 +222,6 @@ export default function WorshipSchedules({
           ministry: ibadahData?.filter(
             (a) => {
               if(a) {
-                
                 return formatDate(a?.tanggal).setHours(23, 59, 59, 999) >= today
               }
             }
